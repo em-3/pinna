@@ -1,0 +1,7 @@
+# Package Managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Stop prettier from trying to format the tauri output
+src-tauri/target/
