@@ -1,10 +1,36 @@
 <script lang="ts">
+	import type { Config } from "$lib/stores/config";
+
+	import { goto } from "$app/navigation";
 	import mediaQueryStore from "$lib/stores/mediaQuery";
 	import "ldrs/waveform";
+	import { getContext, onMount } from "svelte";
+	import { type Writable } from "svelte/store";
+
+	const config: Writable<Config> = getContext("config");
 
 	let darkMode;
+	let configTriggered = false;
+
 	onMount(async () => {
 		darkMode = mediaQueryStore("(prefers-color-scheme: dark)");
+	});
+
+	config.subscribe((value) => {
+		//Skip the first notification (since the file read is async)
+		if (!configTriggered) {
+			configTriggered = true;
+			return;
+		}
+
+		setTimeout(() => {
+			//If the setup is complete, route the user to the homepage. Otherwise route them to the setup
+			if (value.setupComplete) {
+				goto("/home");
+			} else {
+				goto("/setup");
+			}
+		}, 1000);
 	});
 </script>
 
