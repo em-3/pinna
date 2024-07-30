@@ -1,4 +1,4 @@
-import { BaseDirectory, exists, readTextFile, writeTextFile } from "@tauri-apps/api/fs";
+import { BaseDirectory, createDir, exists, readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import { writable } from "svelte/store";
 
 /**
@@ -26,9 +26,12 @@ function createConfigStore() {
 	async function init() {
 		if (!(await exists(configPath, { dir: BaseDirectory.AppData }))) {
 			//Write the default config
+			await createDir("", { dir: BaseDirectory.AppData, recursive: true });
 			await writeTextFile(configPath, JSON.stringify(defaultConfig), {
 				dir: BaseDirectory.AppData
 			});
+
+			config.set(defaultConfig);
 		} else {
 			//Read the existing config
 			currentConfig = JSON.parse(await readTextFile(configPath, { dir: BaseDirectory.AppData }));

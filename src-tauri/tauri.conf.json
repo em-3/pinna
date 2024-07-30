@@ -23,7 +23,7 @@
 				"exists": true,
 				"readFile": true,
 				"writeFile": true,
-				"scope": ["$APPDATA/*"]
+				"scope": ["$APPDATA", "$APPDATA/*"]
 			}
 		},
 		"bundle": {
