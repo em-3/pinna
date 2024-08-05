@@ -1,31 +1,5 @@
 <script lang="ts">
-	import type { Config } from "$lib/stores/config";
-
-	import { goto } from "$app/navigation";
 	import "ldrs/waveform";
-	import { getContext } from "svelte";
-	import { type Writable } from "svelte/store";
-
-	const config: Writable<Config> = getContext("config");
-
-	let configTriggered = false;
-
-	config.subscribe((value) => {
-		//Skip the first notification (since the file read is async)
-		if (!configTriggered) {
-			configTriggered = true;
-			return;
-		}
-
-		setTimeout(() => {
-			//If the setup is complete, route the user to the homepage. Otherwise route them to the setup
-			if (value.setupComplete) {
-				goto("/home");
-			} else {
-				goto("/setup");
-			}
-		}, 1000);
-	});
 </script>
 
 <div class="flex size-full flex-col items-center justify-around">
