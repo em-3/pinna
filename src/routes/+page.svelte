@@ -2,19 +2,13 @@
 	import type { Config } from "$lib/stores/config";
 
 	import { goto } from "$app/navigation";
-	import mediaQueryStore from "$lib/stores/mediaQuery";
 	import "ldrs/waveform";
-	import { getContext, onMount } from "svelte";
+	import { getContext } from "svelte";
 	import { type Writable } from "svelte/store";
 
 	const config: Writable<Config> = getContext("config");
 
-	let darkMode;
 	let configTriggered = false;
-
-	onMount(async () => {
-		darkMode = mediaQueryStore("(prefers-color-scheme: dark)");
-	});
 
 	config.subscribe((value) => {
 		//Skip the first notification (since the file read is async)
@@ -41,7 +35,7 @@
 			<h2 class="text-2xl text-slate-500">A beautiful report generator for Jira&reg;</h2>
 		</div>
 		<div class="flex flex-col items-center gap-6">
-			<l-waveform color={$darkMode ? "white" : "black"} size="40"></l-waveform>
+			<l-waveform color="var(--primary-color)" size="40"></l-waveform>
 			<h3 class="text-slate-500 dark:text-gray-300">Loading...</h3>
 		</div>
 	</div>

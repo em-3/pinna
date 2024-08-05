@@ -8,6 +8,16 @@ body {
 	height: 100%;
 }
 
+:root {
+	--primary-color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--primary-color: white;
+	}
+}
+
 /* https://svelte.dev/blog/view-transitions */
 
 @keyframes fade-in {
