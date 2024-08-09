@@ -48,7 +48,7 @@ function createConfigStore() {
 		if (!(await exists(configPath, { dir: BaseDirectory.AppData }))) {
 			//Write the default config
 			await createDir("", { dir: BaseDirectory.AppData, recursive: true });
-			await writeTextFile(configPath, JSON.stringify(defaultConfig), {
+			await writeTextFile(configPath, JSON.stringify(defaultConfig, null, 2), {
 				dir: BaseDirectory.AppData
 			});
 
@@ -67,7 +67,7 @@ function createConfigStore() {
 				return;
 			}
 
-			await writeTextFile(configPath, JSON.stringify(value), {
+			await writeTextFile(configPath, JSON.stringify(value, null, 2), {
 				dir: BaseDirectory.AppData
 			});
 		});
