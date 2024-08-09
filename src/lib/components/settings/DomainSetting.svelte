@@ -21,6 +21,7 @@
 		Error: Invalid domain
 	</p>
 	<input
+		autocomplete="off"
 		bind:value
 		class="rounded-xl border-2 border-solid border-slate-500 p-2"
 		id={propName}

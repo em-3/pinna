@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { invoke } from "@tauri-apps/api/tauri";
+	import ThemedButton from "$lib/components/ThemedButton.svelte";
 	import "ldrs/ring";
-
-	import ThemedButton from "../ThemedButton.svelte";
 
 	export let domain: string;
 	export let domainValid: boolean = false;
