@@ -67,6 +67,7 @@
 		Warning! These values can be used by a malicious attacker to gain access to your Jira
 		installation. Please handle with care.
 	</p>
+	<h3 class="text-lg font-bold">Autofill</h3>
 	<p>
 		Pinna can autofill the fields below by extracting the cookies from a compatible Chromium or
 		Firefox-based browser.

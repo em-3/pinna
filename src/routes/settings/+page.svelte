@@ -13,6 +13,15 @@
 	//Clone the config so we can make changes to it without saving them
 	let liveConfig = structuredClone($config);
 
+	//And make sure any updates get shown here as well
+	config.subscribe((newConfig) => {
+		if (liveConfig == newConfig) {
+			return;
+		}
+
+		liveConfig = structuredClone(newConfig);
+	});
+
 	//Checks if the config has changed from the saved version.
 	///This isn't the most elegant solution, but it's the best I could think of without doing deep object inspection
 	$: configModified = !(
@@ -32,10 +41,13 @@
 
 <div class="flex flex-col">
 	<header class="p-4">
-		<h1 class="mb-3 text-3xl">Settings</h1>
+		<div class="mb-4 flex items-center gap-4">
+			<iconify-icon icon="material-symbols:settings" width="48"></iconify-icon>
+			<h1 class="text-2xl">Settings</h1>
+		</div>
 		<hr class="border-t-solid w-1/3 border-t-2 border-t-slate-500" />
 	</header>
-	<SettingsCategory name="Jira">
+	<SettingsCategory icon="logos:jira" name="Jira">
 		<JiraCookies
 			bind:crossSiteToken={liveConfig.backend.crossSiteToken}
 			bind:crowdToken={liveConfig.backend.crowdTokenKey}
