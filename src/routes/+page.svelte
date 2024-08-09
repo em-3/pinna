@@ -5,7 +5,7 @@
 <div class="flex size-full flex-col items-center justify-around">
 	<div class="flex flex-1 flex-col items-center justify-center gap-20">
 		<div class="text-center">
-			<h1 class="text-4xl font-bold dark:text-white">Pinna</h1>
+			<h1 class="text-4xl font-bold">Pinna</h1>
 			<h2 class="text-2xl text-slate-500">A beautiful report generator for Jira&reg;</h2>
 		</div>
 		<div class="flex flex-col items-center gap-6">

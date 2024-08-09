@@ -62,8 +62,8 @@
 	}
 </script>
 
-<div class="flex flex-col gap-4 rounded-lg p-4 even:bg-gray-100">
-	<p class="rounded-lg border-l-8 border-l-yellow-400 bg-yellow-100 p-4">
+<div class="flex flex-col gap-4 rounded-lg p-4 even:bg-gray-100 dark:even:bg-slate-900">
+	<p class="rounded-lg border-l-8 border-l-yellow-400 bg-yellow-100 p-4 text-black">
 		Warning! These values can be used by a malicious attacker to gain access to your Jira
 		installation. Please handle with care.
 	</p>
