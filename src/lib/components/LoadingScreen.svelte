@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="fixed bottom-0 left-0 right-0 top-0 flex flex-col items-center justify-around bg-white dark:bg-slate-800"
+	class="fixed bottom-0 left-0 right-0 top-0 z-10 flex flex-col items-center justify-around bg-white dark:bg-slate-800"
 >
 	<div class="flex flex-1 flex-col items-center justify-center gap-20">
 		<div class="text-center">

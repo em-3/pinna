@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onNavigate } from "$app/navigation";
 	import LoadingScreen from "$lib/components/LoadingScreen.svelte";
+	import Navigation from "$lib/components/navigation/Navigation.svelte";
 	import delay from "$lib/delay";
 	import { createConfigStore } from "$lib/stores/config";
 	import "iconify-icon";
@@ -38,8 +39,18 @@
 	});
 </script>
 
-<main class="size-full {loading ? 'overflow-hidden' : ''}">
-	<slot />
+<main class="content-grid size-full overflow-hidden">
+	<section class="bg-gray-100 dark:bg-slate-900">
+		<header class="flex items-center gap-2 p-4">
+			<!-- Icon goes here -->
+			<h1 class="text-2xl">Pinna</h1>
+		</header>
+		<Navigation></Navigation>
+	</section>
+
+	<section class="page overflow-y-auto">
+		<slot />
+	</section>
 </main>
 
 {#if loading}
@@ -47,3 +58,14 @@
 		<LoadingScreen></LoadingScreen>
 	</div>
 {/if}
+
+<style>
+	.content-grid {
+		display: grid;
+		grid-template-columns: auto 1fr;
+	}
+
+	section.page {
+		view-transition-name: content;
+	}
+</style>
