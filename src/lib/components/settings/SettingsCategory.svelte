@@ -4,7 +4,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<div class="sticky top-0 bg-white/30 backdrop-blur-sm dark:bg-slate-800/30">
+	<div class="sticky top-0 bg-white/90 backdrop-blur-lg dark:bg-slate-800/90">
 		<div class="flex items-center gap-4 p-4">
 			{#if icon}
 				<iconify-icon {icon} width="32"></iconify-icon>
