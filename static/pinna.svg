@@ -50,7 +50,8 @@
   </defs>
   <g
      id="g3"
-     style="stroke:url(#linearGradient4)">
+     style="stroke:url(#linearGradient4)"
+     transform="translate(9.5762266,-3.7038434)">
     <path
        style="fill:none;stroke:url(#linearGradient2);stroke-width:19.8438;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none"
        d="M 14.889182,256.77308 C 97.148233,235.69423 173.75646,128.36406 196.95514,83.065973"
