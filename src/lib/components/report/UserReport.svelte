@@ -1,8 +1,8 @@
 <script>
     import { CircleCheck, CircleDot, CircleAlert, CircleDashed, CircleFadingArrowUp } from "lucide-svelte";
-    import ReportTable from "./IssuesTable.svelte";
-    import SummaryItem from "./SummaryItem.svelte";
-    import SummaryGrid from "./SummaryGrid.svelte";
+    import CategoryReport from "./CategoryReport.svelte";
+    import SummaryGrid from "./summary/SummaryGrid.svelte";
+    import SummaryItem from "./summary/SummaryItem.svelte";
     import { formatHours } from "$lib/formattedTime";
 
     let { id = undefined, name, reviewed, developed, changesRequested, unassigned, inProgress } = $props();
@@ -23,11 +23,11 @@
         <SummaryItem total={totalReviewedPoints} name="Reviewed Points" />
     </SummaryGrid>
     <div class="report-grid">
-        <ReportTable name="Reviewed" issues={reviewed} Icon={CircleCheck}></ReportTable>
-        <ReportTable name="Developed" issues={developed} Icon={CircleDot}></ReportTable>
-        <ReportTable name="Changes Requested" issues={changesRequested} Icon={CircleAlert}></ReportTable>
-        <ReportTable name="Unassigned" issues={unassigned} Icon={CircleDashed}></ReportTable>
-        <ReportTable name="In Progress" issues={inProgress} Icon={CircleFadingArrowUp}></ReportTable>
+        <CategoryReport name="Reviewed" issues={reviewed} Icon={CircleCheck}></CategoryReport>
+        <CategoryReport name="Developed" issues={developed} Icon={CircleDot}></CategoryReport>
+        <CategoryReport name="Changes Requested" issues={changesRequested} Icon={CircleAlert}></CategoryReport>
+        <CategoryReport name="Unassigned" issues={unassigned} Icon={CircleDashed}></CategoryReport>
+        <CategoryReport name="In Progress" issues={inProgress} Icon={CircleFadingArrowUp}></CategoryReport>
     </div>
 </section>
 
