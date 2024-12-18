@@ -2,6 +2,7 @@
     import { CircleCheck, CircleDot, CircleAlert, CircleDashed, CircleFadingArrowUp } from "lucide-svelte";
     import ReportTable from "./IssuesTable.svelte";
     import SummaryItem from "./SummaryItem.svelte";
+    import SummaryGrid from "./SummaryGrid.svelte";
     import { formatHours } from "$lib/formattedTime";
 
     let { name, reviewed, developed, changesRequested, unassigned, inProgress } = $props();
@@ -14,13 +15,13 @@
 
 <section>
     <header>
-        <h1>Summary for { name }</h1>
+        <h1>Report for { name }</h1>
     </header>
-    <div class="summary-grid">
+    <SummaryGrid>
         <SummaryItem total={formatHours(totalSeconds)} name="Hours Spent" />
         <SummaryItem total={totalDevelopedPoints} name="Developed Points" />
         <SummaryItem total={totalReviewedPoints} name="Reviewed Points" />
-    </div>
+    </SummaryGrid>
     <div class="report-grid">
         <ReportTable name="Reviewed" issues={reviewed} Icon={CircleCheck}></ReportTable>
         <ReportTable name="Developed" issues={developed} Icon={CircleDot}></ReportTable>
@@ -32,7 +33,6 @@
 
 <style>
     section {
-        margin: 0 10px;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -42,12 +42,6 @@
         color: var(--accent-color);
     }
 
-    .summary-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 5px;
-    }
-
     .report-grid {
         display: grid;
         grid-template-columns: 1fr;
@@ -55,10 +49,6 @@
     }
 
     @media (min-width: 64em) {
-        .summary-grid {
-            gap: 20px;
-        }
-
         .report-grid {
             grid-template-columns: 1fr 1fr;
         }
