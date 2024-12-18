@@ -31,8 +31,24 @@ body {
     font-family: Inter, Helvetica, Arial, sans-serif;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, p {
     margin: 0;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.25em;
 }
 
 .lucide * {
@@ -42,11 +58,11 @@ h1, h2, h3 {
 @media (prefers-color-scheme: dark) {
     :root {
         --text-color: #f6f6f6;
-        --background-color: #121212;
-        --secondary-background-color: #191919;
-        --secondary-color: #272727;
-        --tertiary-color: #333333;
+        --background-color: #191919;
+        --secondary-background-color: #272727;
+        --secondary-color: #343434;
+        --tertiary-color: #4a4a4a;
         --accent-color: #9e43ff;
-        --secondary-accent-color: #7700ff;
+        --secondary-accent-color: #c586ff;
     }
 }

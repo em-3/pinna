@@ -1,6 +1,6 @@
 <script>
     import { Ghost } from "lucide-svelte";
-    import { formatSeconds } from "$lib/formattedTime";
+    import { formatHoursMinutes } from "$lib/formattedTime";
 
     let { name, issues = [], Icon = undefined } = $props();
 
@@ -30,7 +30,7 @@
                 <th scope="row">{ issue.id }</th>
                 <td class="name">{ issue.name }</td>
                 <td>{ issue.storyPoints }</td>
-                <td>{ formatSeconds(issue.seconds) }</td>
+                <td>{ formatHoursMinutes(issue.seconds) }</td>
             </tr>
             {/each}
         </tbody>
@@ -38,7 +38,7 @@
             <tr>
                 <th scope="row" style="grid-column: span 2;">Total</th>
                 <td>{ totalPoints }</td>
-                <td>{ formatSeconds(totalSeconds) }</td>
+                <td>{ formatHoursMinutes(totalSeconds) }</td>
             </tr>
         </tfoot>
     </table>
@@ -46,7 +46,7 @@
     <!-- Display a special message if there's no values in the table data -->
     <div class="empty-message">
         <Ghost size="48"></Ghost>
-        <h3>There's no data for this category</h3>
+        <p>There's no data for this category</p>
     </div>
     {/if}
 </div>
@@ -75,9 +75,9 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        text-align: center;
         font-weight: normal;
         font-size: 1em;
-        color: var(--secondary-accent-color);
     }
 
     table {
@@ -101,10 +101,6 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-    }
-
-    tbody tr:hover td, tbody tr:hover th {
-        background-color: var(--secondary-color);
     }
 
     tbody th, tbody td {
