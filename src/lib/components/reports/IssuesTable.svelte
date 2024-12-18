@@ -4,11 +4,12 @@
 
     let { name, issues = [], Icon = undefined } = $props();
 
+    // Calculate the total points and seconds by summing each issue's individual values
     let totalPoints = $derived(issues.reduce((total, current) => total + current.storyPoints, 0));
     let totalSeconds = $derived(issues.reduce((total, current) => total + current.seconds, 0));
 </script>
 
-<div class="container">
+<div class="report-table">
     <div class="title">
         <Icon></Icon>
         <h2>{ name }</h2>
@@ -27,7 +28,7 @@
             {#each issues as issue }
             <tr>
                 <th scope="row">{ issue.id }</th>
-                <td>{ issue.name }</td>
+                <td class="name">{ issue.name }</td>
                 <td>{ issue.storyPoints }</td>
                 <td>{ formatSeconds(issue.seconds) }</td>
             </tr>
@@ -42,6 +43,7 @@
         </tfoot>
     </table>
     {:else}
+    <!-- Display a special message if there's no values in the table data -->
     <div class="empty-message">
         <Ghost size="48"></Ghost>
         <h3>There's no data for this category</h3>
@@ -50,8 +52,10 @@
 </div>
 
 <style>
-    .container {
-        margin: 10px;
+    .report-table {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         padding: 20px;
         background-color: var(--secondary-background-color);
         border-radius: 25px;
@@ -62,13 +66,14 @@
         align-items: center;
         justify-content: center;
         gap: 5px;
-        margin-bottom: 10px;
         color: var(--accent-color);
     }
 
     .empty-message {
+        flex: 1;
         display: flex;
         align-items: center;
+        justify-content: center;
         flex-direction: column;
         font-weight: normal;
         font-size: 1em;
@@ -77,7 +82,7 @@
 
     table {
         display: grid;
-        grid-template-columns: 2fr 4fr 1fr 1fr;
+        grid-template-columns: 3fr 3fr 2fr 2fr;
     }
 
     thead, tbody, tfoot, tr {
@@ -90,6 +95,12 @@
         text-align: left;
         align-content: center;
         transition: ease-in 0.2s background-color;
+    }
+
+    td.name {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     tbody tr:hover td, tbody tr:hover th {
@@ -108,5 +119,17 @@
     tbody tr:last-child th,
     tbody tr:last-child td {
         border-bottom: 3px solid var(--tertiary-color);
+    }
+
+    @media (min-width: 40em) {
+        table {
+            grid-template-columns: 2fr 4fr 1fr 1fr;
+        }
+    }
+
+    @media (min-width: 64em) {
+        table {
+            grid-template-columns: 3fr 3fr 2fr 2fr;
+        }
     }
 </style>
