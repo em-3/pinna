@@ -5,7 +5,7 @@
     import SummaryGrid from "./SummaryGrid.svelte";
     import { formatHours } from "$lib/formattedTime";
 
-    let { name, reviewed, developed, changesRequested, unassigned, inProgress } = $props();
+    let { id = undefined, name, reviewed, developed, changesRequested, unassigned, inProgress } = $props();
 
     // Calculate the total points and seconds by summing each issue's individual values
     let totalDevelopedPoints = $derived(developed.reduce((total, current) => total + current.storyPoints, 0));
@@ -13,7 +13,7 @@
     let totalSeconds = $derived(reviewed.concat(developed, changesRequested, unassigned, inProgress).reduce((total, current) => total + current.seconds, 0));
 </script>
 
-<section>
+<section { id }>
     <header>
         <h1>Report for { name }</h1>
     </header>

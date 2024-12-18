@@ -25,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each issues as issue }
+            {#each issues as issue (issue.id)}
             <tr>
                 <th scope="row">{ issue.id }</th>
                 <td class="name">{ issue.name }</td>
