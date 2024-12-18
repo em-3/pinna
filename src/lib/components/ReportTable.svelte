@@ -1,7 +1,8 @@
 <script>
+    import { Ghost } from "lucide-svelte";
     import { formatSeconds } from "$lib/formattedTime";
 
-    let { name, issues, Icon = undefined } = $props();
+    let { name, issues = [], Icon = undefined } = $props();
 
     let totalPoints = $derived(issues.reduce((total, current) => total + current.storyPoints, 0));
     let totalSeconds = $derived(issues.reduce((total, current) => total + current.seconds, 0));
@@ -12,6 +13,7 @@
         <Icon></Icon>
         <h2>{ name }</h2>
     </div>
+    {#if issues.length > 0}
     <table>
         <thead>
             <tr>
@@ -39,12 +41,18 @@
             </tr>
         </tfoot>
     </table>
+    {:else}
+    <div class="empty-message">
+        <Ghost size="48"></Ghost>
+        <h3>There's no data for this category</h3>
+    </div>
+    {/if}
 </div>
 
 <style>
     .container {
         margin: 10px;
-        padding: 10px;
+        padding: 20px;
         background-color: var(--secondary-background-color);
         border-radius: 25px;
     }
@@ -54,8 +62,17 @@
         align-items: center;
         justify-content: center;
         gap: 5px;
-        margin: 10px 0;
+        margin-bottom: 10px;
         color: var(--accent-color);
+    }
+
+    .empty-message {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        font-weight: normal;
+        font-size: 1em;
+        color: var(--secondary-accent-color);
     }
 
     table {

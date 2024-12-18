@@ -35,6 +35,10 @@ h1, h2, h3 {
     margin: 0;
 }
 
+.lucide * {
+    vector-effect: non-scaling-stroke;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --text-color: #f6f6f6;
