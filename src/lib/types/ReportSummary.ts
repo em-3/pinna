@@ -1,5 +1,9 @@
 interface ReportSummary {
-    totalSeconds: number,
+    seconds: {
+        total: number,
+        median: number,
+        standardDeviation: number
+    },
     reviewed: {
         total: number,
         median: number,
