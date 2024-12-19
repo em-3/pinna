@@ -1,7 +1,15 @@
 interface ReportSummary {
     totalSeconds: number,
-    totalReviewed: number,
-    totalDeveloped: number,
+    reviewed: {
+        total: number,
+        median: number,
+        standardDeviation: number
+    },
+    developed: {
+        total: number,
+        median: number,
+        standardDeviation: number
+    },
     users: UserSummary[]
 }
 
