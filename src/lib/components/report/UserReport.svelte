@@ -18,7 +18,7 @@
     <SummaryGrid>
         <SummaryItem total={formatHours(summary.totalSeconds)} name="Hours Spent" />
         <SummaryItem total={summary.data.reviewed.totalPoints} name="Reviewed Points" />
-        <SummaryItem total={summary.data.reviewed.totalPoints} name="Developed Points" />
+        <SummaryItem total={summary.data.developed.totalPoints} name="Developed Points" />
     </SummaryGrid>
     <div class="report-grid">
         <CategoryReport name="Reviewed" worklogs={userData.data.reviewed} summary={ summary.data.reviewed } Icon={CircleCheck}></CategoryReport>
