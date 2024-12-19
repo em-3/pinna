@@ -1,12 +1,11 @@
-<script>
+<script lang="ts">
+    import type { Worklog } from "$lib/types/ReportData";
+    import type { CategorySummary } from "$lib/types/ReportSummary";
+
     import { Ghost } from "lucide-svelte";
     import { formatHoursMinutes } from "$lib/formattedTime";
 
-    let { name, issues = [], Icon = undefined } = $props();
-
-    // Calculate the total points and seconds by summing each issue's individual values
-    let totalPoints = $derived(issues.reduce((total, current) => total + current.storyPoints, 0));
-    let totalSeconds = $derived(issues.reduce((total, current) => total + current.seconds, 0));
+    let { name, worklogs, summary, Icon = undefined }: { name: string, worklogs: Worklog[], summary: CategorySummary, Icon: any } = $props();
 </script>
 
 <div class="report-table">
@@ -14,7 +13,7 @@
         <Icon></Icon>
         <h2>{ name }</h2>
     </div>
-    {#if issues.length > 0}
+    {#if worklogs.length > 0}
     <table>
         <thead>
             <tr>
@@ -25,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each issues as issue (issue.id)}
+            {#each worklogs as issue (issue.id)}
             <tr>
                 <th scope="row">{ issue.id }</th>
                 <td class="name">{ issue.name }</td>
@@ -37,8 +36,8 @@
         <tfoot>
             <tr>
                 <th scope="row" style="grid-column: span 2;">Total</th>
-                <td>{ totalPoints }</td>
-                <td>{ formatHoursMinutes(totalSeconds) }</td>
+                <td>{ summary.totalPoints }</td>
+                <td>{ formatHoursMinutes(summary.totalSeconds) }</td>
             </tr>
         </tfoot>
     </table>

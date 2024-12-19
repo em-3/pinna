@@ -1,33 +1,31 @@
-<script>
+<script lang="ts">
+    import type { UserReport } from "$lib/types/ReportData";
+    import type { UserSummary } from "$lib/types/ReportSummary";
+
     import { CircleCheck, CircleDot, CircleAlert, CircleDashed, CircleFadingArrowUp } from "lucide-svelte";
     import CategoryReport from "./CategoryReport.svelte";
     import SummaryGrid from "./summary/SummaryGrid.svelte";
     import SummaryItem from "./summary/SummaryItem.svelte";
     import { formatHours } from "$lib/formattedTime";
 
-    let { id = undefined, name, reviewed, developed, changesRequested, unassigned, inProgress } = $props();
-
-    // Calculate the total points and seconds by summing each issue's individual values
-    let totalDevelopedPoints = $derived(developed.reduce((total, current) => total + current.storyPoints, 0));
-    let totalReviewedPoints = $derived(reviewed.reduce((total, current) => total + current.storyPoints, 0));
-    let totalSeconds = $derived(reviewed.concat(developed, changesRequested, unassigned, inProgress).reduce((total, current) => total + current.seconds, 0));
+    let { id = undefined, userData, summary }: { id: any, userData: UserReport, summary: UserSummary } = $props();
 </script>
 
 <section { id }>
     <header>
-        <h1>Report for { name }</h1>
+        <h1>Report for { userData.name }</h1>
     </header>
     <SummaryGrid>
-        <SummaryItem total={formatHours(totalSeconds)} name="Hours Spent" />
-        <SummaryItem total={totalDevelopedPoints} name="Developed Points" />
-        <SummaryItem total={totalReviewedPoints} name="Reviewed Points" />
+        <SummaryItem total={formatHours(summary.totalSeconds)} name="Hours Spent" />
+        <SummaryItem total={summary.data.reviewed.totalPoints} name="Reviewed Points" />
+        <SummaryItem total={summary.data.reviewed.totalPoints} name="Developed Points" />
     </SummaryGrid>
     <div class="report-grid">
-        <CategoryReport name="Reviewed" issues={reviewed} Icon={CircleCheck}></CategoryReport>
-        <CategoryReport name="Developed" issues={developed} Icon={CircleDot}></CategoryReport>
-        <CategoryReport name="Changes Requested" issues={changesRequested} Icon={CircleAlert}></CategoryReport>
-        <CategoryReport name="Unassigned" issues={unassigned} Icon={CircleDashed}></CategoryReport>
-        <CategoryReport name="In Progress" issues={inProgress} Icon={CircleFadingArrowUp}></CategoryReport>
+        <CategoryReport name="Reviewed" worklogs={userData.data.reviewed} summary={ summary.data.reviewed } Icon={CircleCheck}></CategoryReport>
+        <CategoryReport name="Developed" worklogs={userData.data.developed} summary={ summary.data.developed } Icon={CircleDot}></CategoryReport>
+        <CategoryReport name="Changes Requested" worklogs={userData.data.changesRequested} summary={ summary.data.changesRequested } Icon={CircleAlert}></CategoryReport>
+        <CategoryReport name="Unassigned" worklogs={userData.data.unassigned} summary={ summary.data.unassigned } Icon={CircleDashed}></CategoryReport>
+        <CategoryReport name="In Progress" worklogs={userData.data.inProgress} summary={ summary.data.inProgress } Icon={CircleFadingArrowUp}></CategoryReport>
     </div>
 </section>
 
