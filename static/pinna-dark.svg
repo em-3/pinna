@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1023.9999"
+   height="1023.9999"
+   viewBox="0 0 270.93331 270.93331"
+   version="1.1"
+   id="svg1"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient6">
+      <stop
+         style="stop-color:#c586ff;stop-opacity:1;"
+         offset="0"
+         id="stop6" />
+      <stop
+         style="stop-color:#ecc9ff;stop-opacity:1;"
+         offset="1"
+         id="stop7" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient6"
+       id="linearGradient7"
+       x1="14.543509"
+       y1="135.46667"
+       x2="256.38983"
+       y2="135.46667"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       xlink:href="#linearGradient6"
+       id="linearGradient2"
+       gradientUnits="userSpaceOnUse"
+       x1="14.543509"
+       y1="135.46667"
+       x2="256.38983"
+       y2="135.46667" />
+    <linearGradient
+       xlink:href="#linearGradient6"
+       id="linearGradient3"
+       gradientUnits="userSpaceOnUse"
+       x1="14.543509"
+       y1="135.46667"
+       x2="256.38983"
+       y2="135.46667" />
+  </defs>
+  <g
+     id="g6"
+     style="stroke:url(#linearGradient7)">
+    <path
+       style="fill:none;stroke:url(#linearGradient2);stroke-width:19.8438;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="M 24.465409,253.06924 C 106.72446,231.99039 183.33269,124.66022 206.53137,79.36213"
+       id="path1" />
+    <path
+       style="fill:none;stroke:url(#linearGradient3);stroke-width:19.8438;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 73.312373,230.34365 c 46.041207,0 103.189467,-15.03528 126.422737,-37.31879 -16.87467,-2.59742 -24.97491,-7.0547 -24.93343,-13.30453 0.0296,-4.45538 19.15389,-13.08967 44.7206,-10.98851 19.03635,-22.71414 40.85007,-79.658249 14.95896,-149.187642 -45.53471,10.363324 -79.14972,25.832384 -103.06137,54.976909 6.54484,24.50234 3.38335,37.703973 -1.50329,39.985533 -2.96915,1.38628 -11.072,1.82109 -18.28756,-17.509073 -12.279866,16.220373 -14.686194,20.724043 -20.567054,33.712113 12.381014,22.29861 6.892999,35.48774 4.12144,36.20645 -6.850432,1.77642 -9.013499,0.79686 -15.719338,-8.15335 -8.943189,22.7509 -12.475292,43.77846 -6.151685,71.58089 z"
+       id="path2" />
+  </g>
+</svg>

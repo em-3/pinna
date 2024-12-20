@@ -1,13 +1,14 @@
-<div class="container">
-    <img src="/pinna.svg" alt="Pinna Logo" width="312">
-    <h1>Pinna</h1>
-</div>
+<script lang="ts">
+    import type { ReportData } from "$lib/types/ReportData";
+    import Report from "$lib/components/report/Report.svelte";
+    import Welcome from "$lib/components/Welcome.svelte";
+    
+    let loadedReport = undefined;
 
-<style>
-    .container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-</style>
+</script>
+
+{#if loadedReport}
+<Report data={ loadedReport }></Report>
+{:else}
+<Welcome></Welcome>
+{/if}
