@@ -1,4 +1,6 @@
 interface ReportData {
+    start: string,
+    end: string,
     users: UserReport[]
 }
 

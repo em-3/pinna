@@ -1,20 +1,27 @@
 <script lang="ts">
+    import type { ReportData } from "$lib/types/ReportData";
+
     import UserReport from "$lib/components/report/UserReport.svelte";
     import SummaryGrid from "./summary/SummaryGrid.svelte";
     import SummaryItem from "./summary/SummaryItem.svelte";
     import { formatHours } from "$lib/formattedTime";
     import { generateReportSummary } from "$lib/reportSummary";
 
-    let { data } = $props();
+    let { data }: { data: ReportData } = $props();
 
     // Generate a summary for the report
     const summary = $derived(generateReportSummary(data));
+
+    // Format the timestamps
+    const startDate = $derived(new Date(data.start));
+    const endDate = $derived(new Date(data.end));
 </script>
 
 <section class="report">
     <section id="overview">
         <header>
-            <h1>Summary</h1>
+            <h1>Report Summary</h1>
+            <h2>From { startDate.toLocaleDateString() } to { endDate.toLocaleDateString() }</h2>
         </header>
         <SummaryGrid>
             <SummaryItem total={ formatHours(summary.seconds.total) } name="Total Hours Spent" subtitle="Median: { formatHours(summary.seconds.median) } / Std. Dev. { formatHours(summary.seconds.standardDeviation) }"></SummaryItem>
@@ -38,6 +45,13 @@
 
     #overview header {
         color: var(--accent-color);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #overview header h2 {
+        font-size: 1.25em;
     }
 
     .report {
