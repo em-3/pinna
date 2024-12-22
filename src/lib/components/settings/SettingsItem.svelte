@@ -6,10 +6,11 @@
         Icon: any,
         description: string | undefined,
         type: string,
-        value: any
+        value: any,
+        dirty: boolean
     }
 
-    let { name, Icon = undefined, description = undefined, type = "text", value = $bindable() }: SettingsItemProperties = $props();
+    let { name, Icon = undefined, description = undefined, type = "text", value = $bindable(), dirty = $bindable(false) }: SettingsItemProperties = $props();
 
     let showPassword = $state(false);
     const PasswordIcon = $derived(showPassword ? Eye : EyeOff);
@@ -27,11 +28,11 @@
     </header>
     {#if type == "password"}
         <div class="password">
-            <input type={ showPassword ? "text" : "password" } bind:value>
+            <input type={ showPassword ? "text" : "password" } bind:value oninput={() => dirty = true}>
             <span><PasswordIcon onclick={() => showPassword = !showPassword} /></span>
         </div>
     {:else}
-        <input { type } bind:value>
+        <input { type } bind:value oninput={() => dirty = true}>
     {/if}
 </section>
 
