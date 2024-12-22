@@ -55,7 +55,7 @@
     }
 
     .report {
-        padding: 0 10px;
+        padding: 10px;
         display: flex;
         flex-direction: column;
         gap: 60px;
