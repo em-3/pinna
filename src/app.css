@@ -19,6 +19,7 @@
     --tertiary-color: #cbcbcb;
     --accent-color: #7700ff;
     --secondary-accent-color: #9e43ff;
+    --menu-color: #f6f6f680;
 }
 
 html, body {
@@ -80,6 +81,7 @@ input[type=button], input[type=submit], a.button, button {
     align-items: center;
     gap: 5px;
     border: none;
+    cursor: pointer;
 }
 
 .lucide * {
@@ -95,5 +97,6 @@ input[type=button], input[type=submit], a.button, button {
         --tertiary-color: #4a4a4a;
         --accent-color: #c586ff;
         --secondary-accent-color: #ecc9ff;
+        --menu-color: #19191980;
     }
 }

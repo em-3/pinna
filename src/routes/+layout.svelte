@@ -50,7 +50,7 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        background-color: #f6f6f680;
+        background-color: var(--menu-color);
         backdrop-filter: blur(20px);
         z-index: 1;
 
