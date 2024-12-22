@@ -36,9 +36,9 @@
         gap: 20px;
     }
 
-    header {
+    /* header {
         color: var(--accent-color);
-    }
+    } */
 
     .report-grid {
         display: grid;

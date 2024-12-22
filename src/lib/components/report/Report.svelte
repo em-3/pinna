@@ -44,13 +44,13 @@
     }
 
     #overview header {
-        color: var(--accent-color);
         display: flex;
         flex-direction: column;
         gap: 10px;
     }
 
     #overview header h2 {
+        color: var(--accent-color);
         font-size: 1.25em;
     }
 
