@@ -50,7 +50,8 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        background-color: var(--background-color);
+        background-color: #f6f6f680;
+        backdrop-filter: blur(20px);
         z-index: 1;
 
         view-transition-name: navbar;
@@ -98,13 +99,18 @@
     /* View transitions for content */
 
     @keyframes slide-from-right {
-        0% {
+        0%, 25% {
             transform: scale(75%) translateX(-100vw);
             opacity: 0;
         }
 
-        75% {
-            transform: scale(75%) translateX(0px);
+        50% {
+            transform: scale(75%) translateX(0);
+            opacity: 50%;
+        }
+
+        100% {
+            transform: scale(100%) translateX(0);
             opacity: 100%;
         }
     }
@@ -112,27 +118,23 @@
     @keyframes slide-to-left {
         25% {
             transform: scale(75%);
+            opacity: 50%;
         }
 
-        75% {
+        50%, 100% {
             transform: scale(75%) translateX(100vw);
-            opacity: 100%;
-        }
-
-        100% {
-            transform: scale(75%) translateX(100vw);
-            opacity: 0;
+            opacity: 0%;
         }
     }
 
     ::view-transition-old(content) {
         animation:
-            300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+            500ms ease-in both slide-to-left;
     }
 
     ::view-transition-new(content) {
         animation:
-            300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+            500ms ease-out both slide-from-right;
     }
 
     ::view-transition-group(navbar) {
