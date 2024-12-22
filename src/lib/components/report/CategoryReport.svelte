@@ -4,15 +4,12 @@
 
     import { Ghost } from "lucide-svelte";
     import { formatHoursMinutes } from "$lib/formattedTime";
+    import RoundedSection from "../RoundedSection.svelte";
 
     let { name, worklogs, summary, Icon = undefined }: { name: string, worklogs: Worklog[], summary: CategorySummary, Icon: any } = $props();
 </script>
 
-<div class="report-table">
-    <div class="title">
-        <Icon></Icon>
-        <h2>{ name }</h2>
-    </div>
+<RoundedSection title={name} {Icon}>
     {#if worklogs.length > 0}
     <table>
         <thead>
@@ -48,26 +45,9 @@
         <p>There's no data for this category</p>
     </div>
     {/if}
-</div>
+</RoundedSection>
 
 <style>
-    .report-table {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding: 20px;
-        background-color: var(--secondary-background-color);
-        border-radius: 25px;
-    }
-
-    .title {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        color: var(--accent-color);
-    }
-
     .empty-message {
         flex: 1;
         display: flex;
