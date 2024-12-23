@@ -1,4 +1,4 @@
-import type { Config } from "./types/Config";
+import type { ConfigData } from "./types/ConfigData";
 
 import { BaseDirectory, exists, mkdir, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 
@@ -6,7 +6,7 @@ import { BaseDirectory, exists, mkdir, readTextFile, writeTextFile } from "@taur
 const configFilePath = "config.json";
 
 // Create the initial config object with default values
-let config: Config = $state({
+let config: ConfigData = $state({
     instance: {
         url: "",
         token: "",
@@ -34,7 +34,7 @@ async function loadConfig() {
         baseDir: BaseDirectory.AppData
     });
 
-    const parsedConfig: Config = JSON.parse(configJSON);
+    const parsedConfig: ConfigData = JSON.parse(configJSON);
 
     // Move the values into the reactive store
     config.instance = parsedConfig.instance;

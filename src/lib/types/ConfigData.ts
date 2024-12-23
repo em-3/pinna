@@ -1,4 +1,4 @@
-interface Config {
+interface ConfigData {
     instance: JiraConfig
 }
 
@@ -8,4 +8,4 @@ interface JiraConfig {
     projectName: string
 }
 
-export type { Config, JiraConfig };
+export type { ConfigData, JiraConfig };

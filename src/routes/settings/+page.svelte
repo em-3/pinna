@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Config } from "$lib/types/Config";
+    import type { ConfigData } from "$lib/types/ConfigData";
 
     import { Cloud, Code, Feather, Globe, KeyRound, LayoutDashboard, Package, Rocket } from "lucide-svelte";
     import { onMount } from "svelte";
@@ -8,7 +8,7 @@
     import SettingsCategory from "$lib/components/settings/SettingsCategory.svelte";
     import InfoItem from "$lib/components/settings/InfoItem.svelte";
 
-    let tempConfig: Config = $state({
+    let tempConfig: ConfigData = $state({
         instance: {
             projectName: "",
             token: "",
