@@ -9,20 +9,19 @@
     </picture>
     <h1>Welcome to Pinna!</h1>
     <div class="quick-actions">
-        <button><FilePlus2 />New</button>
+        <a class="button" href="/new"><FilePlus2 />New</a>
         <button><FileInput />Load</button>
     </div>
 </section>
 
 <style>
     .welcome {
-        flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
         gap: 10px;
-        transform: translateY(-30px);
+        margin-top: 30px;
     }
 
     .quick-actions {

@@ -1,7 +1,7 @@
 <script>
-    import { onNavigate } from "$app/navigation";
-    import { FileInput, FilePlus2, Home, Settings } from "lucide-svelte";
     import "../app.css";
+    import { onNavigate } from "$app/navigation";
+    import Navigation from "$lib/components/Navigation.svelte";
 
     let { children } = $props();
 
@@ -18,60 +18,16 @@
 	});
 </script>
 
-<nav>
-    <a href="/">
-        <Home />
-        <span>Home</span>
-    </a>
-    <a href="/new/">
-        <FilePlus2 />
-        <span>New</span>
-    </a>
-    <a href="/load/">
-        <FileInput />
-        <span>Load</span>
-    </a>
-    <a href="/settings/">
-        <Settings />
-        <span>Settings</span>
-    </a>
-</nav>
+<Navigation></Navigation>
 
 <main>
     {@render children()}
 </main>
 
 <style>
-    nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        background-color: var(--menu-color);
-        backdrop-filter: blur(20px);
-        z-index: 1;
-
-        view-transition-name: navbar;
-    }
-
-    nav a {
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        text-decoration: none;
-        color: var(--text-color);
-        font-size: 1em;
-    }
-
     main {
         display: flex;
         flex-direction: column;
-        flex: 1;
         max-width: 95em;
         margin: 0 auto;
         margin-bottom: 5em;
@@ -80,17 +36,6 @@
     }
 
     @media (min-width: 64em) {
-        nav {
-            position: static;
-            border-top: none;
-            justify-content: flex-start;
-        }
-
-        nav a {
-            flex-direction: row;
-            font-size: 0.75em;
-        }
-
         main {
             margin-bottom: 0;
         }
@@ -122,25 +67,21 @@
         }
 
         50%, 100% {
-            transform: scale(75%) translateX(100vw);
+            transform: translateX(100vw);
             opacity: 0%;
         }
     }
 
     ::view-transition-old(content) {
+        transform-origin: top;
         animation:
             500ms ease-in both slide-to-left;
     }
 
     ::view-transition-new(content) {
+        transform-origin: top;
         animation:
             500ms ease-out both slide-from-right;
-    }
-
-    ::view-transition-group(navbar) {
-        /* Fix for weird view transition stacking issues */
-        /* https://www.nicchan.me/blog/view-transitions-and-stacking-context/ */
-        z-index: 1;
     }
 
     @media (prefers-reduced-motion) {

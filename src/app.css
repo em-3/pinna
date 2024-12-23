@@ -22,6 +22,10 @@
     --menu-color: #f6f6f680;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html, body {
     min-height: 100vh;
     margin: 0;
@@ -31,8 +35,6 @@ body {
     color: var(--text-color);
     background-color: var(--background-color);
     font-family: Inter, Helvetica, Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
 }
 
 h1, h2, h3, h4, p {
@@ -81,6 +83,7 @@ input[type=button], input[type=submit], a.button, button {
     align-items: center;
     gap: 5px;
     border: none;
+    text-decoration: none;
     cursor: pointer;
 }
 
