@@ -1,6 +1,6 @@
 import type { CategorySummary, ReportSummary, UserSummary } from "./types/ReportSummary";
 import type { ReportData, UserReport, Worklog } from "./types/ReportData"
-import { median, standardDeviationP } from "./utils";
+import { median, standardDeviationP, roundPrecise } from "./utils";
 
 /**
  * Generates a summary of a report
@@ -44,13 +44,13 @@ function generateReportSummary(report: ReportData): ReportSummary {
     summary.developed.total = developedPoints.reduce((total, current) => total + current, 0);
 
     // Calculate the standard deviations and medians
-    summary.seconds.median = median(seconds);
-    summary.reviewed.median = median(reviewedPoints);
-    summary.developed.median = median(developedPoints);
+    summary.seconds.median = roundPrecise(median(seconds), 2);
+    summary.reviewed.median = roundPrecise(median(reviewedPoints), 2);
+    summary.developed.median = roundPrecise(median(developedPoints), 2);
 
-    summary.seconds.standardDeviation = standardDeviationP(seconds);
-    summary.reviewed.standardDeviation = standardDeviationP(reviewedPoints);
-    summary.developed.standardDeviation = standardDeviationP(developedPoints);
+    summary.seconds.standardDeviation = roundPrecise(standardDeviationP(seconds), 2);
+    summary.reviewed.standardDeviation = roundPrecise(standardDeviationP(reviewedPoints), 2);
+    summary.developed.standardDeviation = roundPrecise(standardDeviationP(developedPoints), 2);
 
     return summary;
 }

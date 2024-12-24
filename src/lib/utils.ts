@@ -42,4 +42,14 @@ function standardDeviationP(data: number[]): number {
     return Math.sqrt(variance);
 }
 
-export { median, standardDeviationP };
+/**
+ * Uses the precision rounding technique from https://stackoverflow.com/a/11832950 to round a number to the given number of places.
+ * @param value The number to round
+ * @param places The number of places to round to
+ * @see https://stackoverflow.com/a/11832950
+ */
+function roundPrecise(value: number, places: number) {
+    return Math.round((value + Number.EPSILON) * Math.pow(10, places)) / Math.pow(10, places);
+}
+
+export { median, standardDeviationP, roundPrecise };
