@@ -1,14 +1,11 @@
-<script lang="ts">
-    import type { ReportData } from "$lib/types/ReportData";
+<script lang="ts">    
+    import { reportStore } from "$lib/report.svelte";
     import Report from "$lib/components/report/Report.svelte";
     import Welcome from "$lib/components/Welcome.svelte";
-    
-    let loadedReport = undefined;
-
 </script>
 
-{#if loadedReport}
-<Report data={ loadedReport }></Report>
+{#if reportStore.report}
+<Report data={ reportStore.report }></Report>
 {:else}
 <Welcome></Welcome>
 {/if}

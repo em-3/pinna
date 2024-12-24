@@ -1,22 +1,34 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import { page } from "$app/state";
+    import { loadReportFromFile } from "$lib/report.svelte";
     import { FileInput, FilePlus2, Home, Settings } from "lucide-svelte";
+
+    function loadReport() {
+        loadReportFromFile()
+        .then(() => {
+            goto("/");
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
 </script>
 
 <nav>
-    <a href="/" class:active={page.url.pathname == "/"}>
+    <a class="link" href="/" class:active={page.url.pathname == "/"}>
         <Home />
         <span>Home</span>
     </a>
-    <a href="/new" class:active={page.url.pathname == "/new"}>
+    <a class="link" href="/new" class:active={page.url.pathname == "/new"}>
         <FilePlus2 />
         <span>New</span>
     </a>
-    <a href="/load">
+    <button class="link" onclick={loadReport}>
         <FileInput />
         <span>Load</span>
-    </a>
-    <a href="/settings" class:active={page.url.pathname == "/settings"}>
+    </button>
+    <a class="link" href="/settings" class:active={page.url.pathname == "/settings"}>
         <Settings />
         <span>Settings</span>
     </a>
@@ -38,7 +50,7 @@
         view-transition-name: navbar;
     }
 
-    nav a {
+    nav .link {
         position: relative;
         display: flex;
         flex-direction: column;
@@ -46,12 +58,13 @@
         gap: 5px;
         padding: 10px;
         text-decoration: none;
+        background-color: transparent;
         color: var(--text-color);
         font-size: 1em;
         border-radius: 15px;
     }
 
-    nav a::after {
+    nav .link::after {
         content: '';
         position: absolute;
         bottom: 5px;
@@ -63,7 +76,7 @@
         transition: 300ms transform ease-out;
     }
 
-    nav a.active::after {
+    nav .link.active::after {
         transform: scaleX(1);
     }
 

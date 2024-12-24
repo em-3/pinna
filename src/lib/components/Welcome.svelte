@@ -1,5 +1,12 @@
 <script lang="ts">
+    import { loadReportFromFile } from "$lib/report.svelte";
     import { FileInput, FilePlus2 } from "lucide-svelte";
+
+    function loadReport() {
+        loadReportFromFile().catch((error) => {
+            console.log(error);
+        });
+    }
 </script>
 
 <section class="welcome">
@@ -10,7 +17,7 @@
     <h1>Welcome to Pinna!</h1>
     <div class="quick-actions">
         <a class="button" href="/new"><FilePlus2 />New</a>
-        <button><FileInput />Load</button>
+        <button onclick={loadReport}><FileInput />Load</button>
     </div>
 </section>
 
