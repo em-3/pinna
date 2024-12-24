@@ -3,7 +3,7 @@
 
     import { Cloud, Code, Feather, Globe, KeyRound, LayoutDashboard, Package, Rocket } from "lucide-svelte";
     import { onMount } from "svelte";
-    import { config, saveConfig as saveConfigToFile } from "$lib/config.svelte";
+    import { configStore, saveConfig as saveConfigToFile } from "$lib/config.svelte";
     import SettingsItem from "$lib/components/settings/SettingsItem.svelte";
     import SettingsCategory from "$lib/components/settings/SettingsCategory.svelte";
     import InfoItem from "$lib/components/settings/InfoItem.svelte";
@@ -19,20 +19,20 @@
 
     function discardConfig() {
         // Reset the UI to the original values
-        tempConfig = $state.snapshot(config);
+        tempConfig = $state.snapshot(configStore).config;
         dirty = false;
     }
 
     function saveConfig() {
         // Copy the values into the config and save it
-        config.instance = tempConfig.instance;
+        configStore.config = tempConfig;
         saveConfigToFile();
         dirty = false;
     }
 
     onMount(() => {
         // Create an exact copy of the current config
-        tempConfig = $state.snapshot(config);
+        tempConfig = $state.snapshot(configStore).config;
     });
 
 </script>
