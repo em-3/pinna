@@ -12,7 +12,7 @@
                 <CircleAlert size="32" />
             </div>
             <div class="content">
-                <h1>Error!</h1>
+                <h1>{ error.errorTitle ?? "Error!" }</h1>
                 <p>{ error.errorMessage }</p>
             </div>
         </div>
@@ -34,7 +34,7 @@
     }
 
     .error-toast {
-        width: 25em;
+        max-width: 25em;
         display: grid;
         grid-template-columns: min-content 1fr;
         gap: 20px;
