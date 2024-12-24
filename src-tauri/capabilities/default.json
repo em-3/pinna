@@ -11,14 +11,19 @@
     {
       "identifier": "fs:allow-app-read-recursive",
       "allow": [
-        { "path": "$APPDATA/*" }
+        {
+          "path": "$APPDATA/*"
+        }
       ]
     },
     {
       "identifier": "fs:allow-app-write-recursive",
       "allow": [
-        { "path": "$APPDATA/*" }
+        {
+          "path": "$APPDATA/*"
+        }
       ]
-    }
+    },
+    "dialog:default"
   ]
 }
