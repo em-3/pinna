@@ -9,7 +9,7 @@ function median(data: number[]): number {
     }
 
     // Find the halfway point of the array
-    const middle = Math.floor(data.length / 2);
+    const middle = Math.floor(data.length / 2) - 1;
 
     // If the array is odd, then just return the midpoint
     if(data.length % 2) {
@@ -17,7 +17,7 @@ function median(data: number[]): number {
     }
 
     // Return the average of the two middle values
-    return (data[middle] + data[middle + 1]) / 2
+    return (data[middle] + data[middle + 1]) / 2;
 }
 
 /**
