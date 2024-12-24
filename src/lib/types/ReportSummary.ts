@@ -14,12 +14,18 @@ interface ReportSummary {
         median: number,
         standardDeviation: number
     },
+    combined: {
+        total: number,
+        median: number,
+        standardDeviation: number
+    },
     users: UserSummary[]
 }
 
 interface UserSummary {
     id: any,
     totalSeconds: number,
+    combinedPoints: number,
     data: {
         reviewed: CategorySummary,
         developed: CategorySummary,

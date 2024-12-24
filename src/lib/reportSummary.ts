@@ -25,6 +25,11 @@ function generateReportSummary(report: ReportData): ReportSummary {
             median: 0,
             standardDeviation: 0
         },
+        combined: {
+            total: 0,
+            median: 0,
+            standardDeviation: 0
+        },
         users: []
     };
 
@@ -37,20 +42,24 @@ function generateReportSummary(report: ReportData): ReportSummary {
     let seconds = summary.users.map(value => value.totalSeconds).sort();
     let reviewedPoints = summary.users.map(value => value.data.reviewed.totalPoints).sort();
     let developedPoints = summary.users.map(value => value.data.developed.totalPoints).sort();
+    let combinedPoints = summary.users.map(value => value.combinedPoints).sort();
 
     // Find the totals
     summary.seconds.total = seconds.reduce((total, current) => total + current, 0);
     summary.reviewed.total = reviewedPoints.reduce((total, current) => total + current, 0);
     summary.developed.total = developedPoints.reduce((total, current) => total + current, 0);
+    summary.combined.total = combinedPoints.reduce((total, current) => total + current, 0);
 
     // Calculate the standard deviations and medians
     summary.seconds.median = roundPrecise(median(seconds), 2);
     summary.reviewed.median = roundPrecise(median(reviewedPoints), 2);
     summary.developed.median = roundPrecise(median(developedPoints), 2);
+    summary.combined.median = roundPrecise(median(combinedPoints), 2);
 
     summary.seconds.standardDeviation = roundPrecise(standardDeviationP(seconds), 2);
     summary.reviewed.standardDeviation = roundPrecise(standardDeviationP(reviewedPoints), 2);
     summary.developed.standardDeviation = roundPrecise(standardDeviationP(developedPoints), 2);
+    summary.combined.standardDeviation = roundPrecise(standardDeviationP(combinedPoints), 2);
 
     return summary;
 }
@@ -65,6 +74,7 @@ function generateUserSummary(user: UserReport): UserSummary {
     let userSummary: UserSummary = {
         id: user.id,
         totalSeconds: 0,
+        combinedPoints: 0,
         data: {
             reviewed: generateCategorySummary(user.data.reviewed),
             developed: generateCategorySummary(user.data.developed),
@@ -74,8 +84,11 @@ function generateUserSummary(user: UserReport): UserSummary {
         }
     };
 
-    // Calculate the total seconds for this user by summing the seconds from each category
+    // Calculate the total seconds for the user by summing the seconds from each category
     userSummary.totalSeconds = Object.values(userSummary.data).reduce((total, current) => total + current.totalSeconds, 0);
+
+    // Calculate the combined points for the user by summing the reviewed and developed categories
+    userSummary.combinedPoints = userSummary.data.reviewed.totalPoints + userSummary.data.developed.totalPoints;
 
     return userSummary;
 }
