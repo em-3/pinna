@@ -71,7 +71,9 @@
         nav {
             position: static;
             border-top: none;
+            display: inline-flex;
             justify-content: flex-start;
+            width: initial;
         }
 
         nav a {
@@ -84,5 +86,15 @@
         /* Fix for weird view transition stacking issues */
         /* https://www.nicchan.me/blog/view-transitions-and-stacking-context/ */
         z-index: 1;
+    }
+
+    ::view-transition-old(navbar) {
+        /* Stop the old navbar from displaying at all */
+        display: none;
+    }
+
+    ::view-transition-new(navbar) {
+        /* Prevent the fade-in on the new navbar */
+        animation: none;
     }
 </style>
