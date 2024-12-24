@@ -2,6 +2,7 @@
     import "../app.css";
     import { onNavigate } from "$app/navigation";
     import Navigation from "$lib/components/Navigation.svelte";
+    import ErrorStack from "$lib/components/error/ErrorStack.svelte";
 
     let { children } = $props();
 
@@ -18,7 +19,9 @@
 	});
 </script>
 
-<Navigation></Navigation>
+<ErrorStack></ErrorStack>
+
+<Navigation />
 
 <main>
     {@render children()}
