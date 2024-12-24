@@ -1,10 +1,11 @@
 <script lang="ts">
     import { loadReportFromFile } from "$lib/report.svelte";
+    import { showErrorMessage } from "$lib/error.svelte";
     import { FileInput, FilePlus2 } from "lucide-svelte";
 
     function loadReport() {
-        loadReportFromFile().catch((error) => {
-            console.log(error);
+        loadReportFromFile().catch((error: Error) => {
+            showErrorMessage(error.message, "Error Opening Report");
         });
     }
 </script>

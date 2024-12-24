@@ -1,4 +1,5 @@
 interface ReportData {
+    pinnaID: string,
     start: string,
     end: string,
     users: UserReport[]

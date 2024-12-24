@@ -2,6 +2,7 @@
     import { goto } from "$app/navigation";
     import { page } from "$app/state";
     import { loadReportFromFile } from "$lib/report.svelte";
+    import { showErrorMessage } from "$lib/error.svelte";
     import { FileInput, FilePlus2, Home, Settings } from "lucide-svelte";
 
     function loadReport() {
@@ -9,8 +10,8 @@
         .then(() => {
             goto("/");
         })
-        .catch((error) => {
-            console.log(error);
+        .catch((error: Error) => {
+            showErrorMessage(error.message, "Error Opening Report");
         });
     }
 </script>
@@ -39,6 +40,7 @@
         position: fixed;
         bottom: 0;
         left: 0;
+        z-index: 1;
         width: 100%;
         display: flex;
         align-items: stretch;
@@ -47,8 +49,7 @@
         padding: 5px;
         background-color: var(--menu-color);
         backdrop-filter: blur(20px);
-        z-index: 1;
-
+        
         view-transition-name: navbar;
     }
 
@@ -85,7 +86,6 @@
     @media (min-width: 64em) {
         nav {
             position: static;
-            border-top: none;
             display: inline-flex;
             justify-content: flex-start;
             width: initial;
