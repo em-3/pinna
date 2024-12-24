@@ -43,6 +43,8 @@
         display: flex;
         align-items: stretch;
         justify-content: space-evenly;
+        gap: 5px;
+        padding: 5px;
         background-color: var(--menu-color);
         backdrop-filter: blur(20px);
         z-index: 1;
@@ -89,7 +91,7 @@
             width: initial;
         }
 
-        nav a {
+        nav .link {
             flex-direction: row;
             font-size: 0.75em;
         }
