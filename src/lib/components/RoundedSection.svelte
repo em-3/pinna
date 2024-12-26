@@ -1,16 +1,17 @@
 <script lang="ts">
+    import type { Icon as IconType } from "lucide-svelte";
     import type { Snippet } from "svelte";
 
-    let { title, children, Icon = undefined }: { title: string, children: Snippet, Icon: any } = $props();
+    let { title, children, Icon = undefined }: { title: string, children: Snippet, Icon: typeof IconType | undefined } = $props();
 </script>
 
-<div class="section">
+<section class="section">
     <header class="title">
-        <Icon></Icon>
+        <Icon />
         <h2>{ title }</h2>
     </header>
     {@render children()}
-</div>
+</section>
 
 <style>
     .section {
