@@ -4,7 +4,7 @@
 
     import { Ghost } from "lucide-svelte";
     import { formatHoursMinutes } from "$lib/formattedTime";
-    import RoundedSection from "../RoundedSection.svelte";
+    import RoundedSection from "$lib/components/RoundedSection.svelte";
 
     let { name, worklogs, summary, Icon = undefined }: { name: string, worklogs: Worklog[], summary: CategorySummary, Icon: any } = $props();
 </script>
