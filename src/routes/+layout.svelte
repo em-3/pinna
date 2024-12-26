@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     import "../app.css";
     import { onNavigate } from "$app/navigation";
-    import Navigation from "$lib/components/Navigation.svelte";
+    import Navigation from "$lib/components/navigation/Navigation.svelte";
     import ErrorStack from "$lib/components/error/ErrorStack.svelte";
 
     let { children } = $props();
