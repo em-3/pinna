@@ -1,20 +1,14 @@
 <script lang="ts">
-    import type { ConfigData } from "$lib/types/ConfigData";
+    import { defaultConfig, type ConfigData } from "$lib/types/ConfigData";
 
-    import { Cloud, Code, Feather, Globe, KeyRound, LayoutDashboard, Package, Rocket } from "lucide-svelte";
+    import { BookKey, Cloud, Code, Feather, Globe, KeyRound, LayoutDashboard, Package, Rocket, Users } from "lucide-svelte";
     import { onMount } from "svelte";
     import { configStore, saveConfig as saveConfigToFile } from "$lib/config.svelte";
     import SettingsItem from "$lib/components/settings/SettingsItem.svelte";
     import SettingsCategory from "$lib/components/settings/SettingsCategory.svelte";
     import InfoItem from "$lib/components/settings/InfoItem.svelte";
 
-    let tempConfig: ConfigData = $state({
-        instance: {
-            projectName: "",
-            token: "",
-            url: ""
-        }
-    });
+    let tempConfig: ConfigData = $state(defaultConfig);
     let dirty = $state(false);
 
     function discardConfig() {
@@ -47,6 +41,8 @@
             </SettingsItem>
             <SettingsItem name="Personal Access Token" Icon={KeyRound} description="A personal access token connected to your account. This will be used to authenticate with the Jira server." type="password" bind:value={tempConfig.instance.token} bind:dirty></SettingsItem>
             <SettingsItem name="Project Name" Icon={LayoutDashboard} description="The Jira project that worklogs will be pulled from." bind:value={tempConfig.instance.projectName} bind:dirty></SettingsItem>
+            <SettingsItem name="Story Points Field" Icon={BookKey} description="The Jira issue field that is used to track story points." bind:value={tempConfig.instance.storyPointsField} bind:dirty></SettingsItem>
+            <SettingsItem name="Users" Icon={Users} description="A command separated list of usernames, which will be used to generate reports." bind:value={tempConfig.instance.selectedUsers} bind:dirty></SettingsItem>
         </SettingsCategory>
         <SettingsCategory name="About Pinna" Icon={Feather}>
             <InfoItem name="Developers" Icon={Rocket}>
