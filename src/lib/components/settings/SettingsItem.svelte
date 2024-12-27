@@ -1,4 +1,5 @@
 <script lang="ts">
+    import PasswordInput from "../input/PasswordInput.svelte";
     import { Eye, EyeOff } from "lucide-svelte";
 
     interface SettingsItemProperties {
@@ -11,9 +12,6 @@
     }
 
     let { name, Icon = undefined, description = undefined, type = "text", value = $bindable(), dirty = $bindable(false) }: SettingsItemProperties = $props();
-
-    let showPassword = $state(false);
-    const PasswordIcon = $derived(showPassword ? Eye : EyeOff);
 </script>
 
 <section class="settings-item">
@@ -27,10 +25,7 @@
         {/if}
     </header>
     {#if type == "password"}
-        <div class="password">
-            <input type={ showPassword ? "text" : "password" } bind:value oninput={() => dirty = true}>
-            <button onclick={() => showPassword = !showPassword} aria-label="Show/Hide Password"><PasswordIcon /></button>
-        </div>
+        <PasswordInput bind:value oninput={() => dirty = true} />
     {:else}
         <input { type } bind:value oninput={() => dirty = true}>
     {/if}
@@ -56,30 +51,5 @@
 
     .settings-item {
         display: contents;
-    }
-
-    .password {
-        display: flex;
-        align-items: stretch;
-    }
-
-    .password input {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        flex: 1;
-    }
-
-    .password button {
-        display: flex;
-        align-items: center;
-        border: 1px solid var(--tertiary-color);
-        border-radius: 15px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left: none;
-        background-color: var(--background-color);
-        color: var(--text-color);
-        padding: 0 10px;
-        cursor: pointer;
     }
 </style>
