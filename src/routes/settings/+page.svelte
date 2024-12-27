@@ -3,7 +3,7 @@
 
     import { BookKey, Cloud, Code, Feather, Globe, KeyRound, LayoutDashboard, Package, Rocket, Users } from "lucide-svelte";
     import { onMount } from "svelte";
-    import { configStore, saveConfig as saveConfigToFile } from "$lib/config.svelte";
+    import { configStore, saveConfig as saveConfigToFile } from "$lib/stores/config.svelte";
     import SettingsItem from "$lib/components/settings/SettingsItem.svelte";
     import SettingsCategory from "$lib/components/settings/SettingsCategory.svelte";
     import InfoItem from "$lib/components/settings/InfoItem.svelte";

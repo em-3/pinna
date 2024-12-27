@@ -1,4 +1,4 @@
-import type { ReportData } from "./types/ReportData";
+import type { ReportData } from "../types/ReportData";
 
 import { exists, readTextFile } from "@tauri-apps/plugin-fs";
 import { open } from "@tauri-apps/plugin-dialog";

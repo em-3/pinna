@@ -1,4 +1,4 @@
-import type { ErrorData } from "./types/ErrorData";
+import type { ErrorData } from "../types/ErrorData";
 
 const errorQueue: ErrorData[] = $state([]);
 

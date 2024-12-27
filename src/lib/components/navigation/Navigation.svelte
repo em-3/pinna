@@ -1,7 +1,7 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { loadReportFromFile } from "$lib/report.svelte";
-    import { showErrorMessage } from "$lib/error.svelte";
+    import { loadReportFromFile } from "$lib/stores/report.svelte";
+    import { showErrorMessage } from "$lib/stores/error.svelte";
     import { BugPlay, FileInput, FilePlus2, Home, Settings } from "lucide-svelte";
     import NavLink from "./NavLink.svelte";
     import NavButton from "./NavButton.svelte";

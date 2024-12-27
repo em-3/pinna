@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { errorQueue } from "$lib/error.svelte";
+    import { errorQueue } from "$lib/stores/error.svelte";
     import { fly } from "svelte/transition";
     import { flip } from "svelte/animate";
     import { CircleAlert } from "lucide-svelte";

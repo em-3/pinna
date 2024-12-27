@@ -1,4 +1,4 @@
-import { defaultConfig, type ConfigData } from "./types/ConfigData";
+import { defaultConfig, type ConfigData } from "../types/ConfigData";
 import { BaseDirectory, exists, mkdir, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 
 // The config file name

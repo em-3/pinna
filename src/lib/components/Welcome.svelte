@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { loadReportFromFile } from "$lib/report.svelte";
-    import { showErrorMessage } from "$lib/error.svelte";
+    import { loadReportFromFile } from "$lib/stores/report.svelte";
+    import { showErrorMessage } from "$lib/stores/error.svelte";
     import { FileInput, FilePlus2 } from "lucide-svelte";
 
     function loadReport() {
