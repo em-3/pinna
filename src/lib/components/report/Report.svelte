@@ -1,10 +1,10 @@
 <script lang="ts">
     import type { ReportData } from "$lib/types/ReportData";
 
-    import UserReport from "$lib/components/report/interface/UserReport.svelte";
+    import UserReport from "./UserReport.svelte";
     import SummaryGrid from "$lib/components/report/summary/SummaryGrid.svelte";
     import SummaryItem from "$lib/components/report/summary/SummaryItem.svelte";
-    import { formatHours } from "$lib/formattedTime";
+    import { formatHours } from "$lib/utils";
     import { generateReportSummary } from "$lib/reportSummary";
 
     let { data }: { data: ReportData } = $props();

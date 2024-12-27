@@ -3,7 +3,7 @@
     import type { CategorySummary } from "$lib/types/ReportSummary";
 
     import { Ghost } from "lucide-svelte";
-    import { formatHoursMinutes } from "$lib/formattedTime";
+    import { formatHoursMinutes } from "$lib/utils";
     import RoundedSection from "$lib/components/RoundedSection.svelte";
 
     let { name, worklogs, summary, Icon = undefined }: { name: string, worklogs: Worklog[], summary: CategorySummary, Icon: any } = $props();

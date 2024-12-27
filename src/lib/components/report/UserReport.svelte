@@ -6,7 +6,7 @@
     import CategoryReport from "./CategoryReport.svelte";
     import SummaryGrid from "$lib/components/report/summary/SummaryGrid.svelte";
     import SummaryItem from "$lib/components/report/summary/SummaryItem.svelte";
-    import { formatHours } from "$lib/formattedTime";
+    import { formatHours } from "$lib/utils";
 
     let { id = undefined, userData, summary }: { id: any, userData: UserReport, summary: UserSummary } = $props();
 </script>
