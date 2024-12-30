@@ -1,7 +1,10 @@
 import type { ReportData } from "../types/ReportData";
 
+import { DateTime } from "luxon";
 import { exists, readTextFile } from "@tauri-apps/plugin-fs";
 import { open } from "@tauri-apps/plugin-dialog";
+import { createReport } from "$lib/reportGenerator";
+import { configStore } from "./config.svelte";
 
 // Create the initial report object with default values
 const reportStore: { report: ReportData | undefined } = $state({
@@ -55,4 +58,19 @@ async function loadReportFromFile() {
     reportStore.report = parsedReport;
 }
 
-export { reportStore, loadReportFromFile };
+/**
+ * Generates a report using the provided dates and information stored in the config, replacing the current in-memory report.
+ * @param startDate The start date for the report
+ * @param endDate The end date for the report
+ */
+async function generateReportFromConfig(startDate: DateTime, endDate: DateTime) {
+    const { url, projectName, selectedUsers, storyPointsField, token } = configStore.config.instance;
+
+    // Generate the report
+    const generatedReport = await createReport(url, startDate, endDate, selectedUsers.split(", "), projectName, storyPointsField, token);
+
+    // Update the stored report
+    reportStore.report = generatedReport;
+}
+
+export { reportStore, loadReportFromFile, generateReportFromConfig };
