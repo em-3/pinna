@@ -1,41 +1,63 @@
 interface ReportSummary {
-    seconds: {
-        total: number,
-        median: number,
-        standardDeviation: number
-    },
-    reviewed: {
-        total: number,
-        median: number,
-        standardDeviation: number
-    },
-    developed: {
-        total: number,
-        median: number,
-        standardDeviation: number
-    },
-    combined: {
-        total: number,
-        median: number,
-        standardDeviation: number
-    },
-    users: UserSummary[]
+    seconds: ReportMetric;
+
+    reviewed: ReportMetric;
+
+    developed: ReportMetric;
+
+    combined: ReportMetric;
+
+    userSummaries: UserSummary[];
 }
 
+/**
+ * Represents a generic metric.
+ */
+interface ReportMetric {
+    /**
+     * The total for the metric.
+     */
+    total: number;
+
+    /**
+     * The median for the metric.
+     */
+    median: number;
+
+    /**
+     * The standard deviation for the metric.
+     */
+    standardDeviation: number;
+}
+
+export const defaultReportMetric: ReportMetric = {
+    total: 0,
+    median: 0,
+    standardDeviation: 0
+};
+
 interface UserSummary {
-    id: any,
-    totalSeconds: number,
-    combinedPoints: number,
-    data: {
-        reviewed: CategorySummary,
-        developed: CategorySummary,
-        unassigned: CategorySummary,
-    }
+    userID: number;
+
+    totalSeconds: number;
+
+    combinedPoints: number;
+
+    categories: {
+
+        reviewed: CategorySummary;
+
+        developed: CategorySummary;
+
+        unassigned: CategorySummary;
+    };
 }
 
 interface CategorySummary {
-    totalSeconds: number,
-    totalPoints: number
+
+    totalSeconds: number;
+
+    totalPoints: number;
 }
 
 export type {ReportSummary, UserSummary, CategorySummary};

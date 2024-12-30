@@ -1,27 +1,28 @@
 <script lang="ts">
-    import type { ReportData } from "$lib/types/ReportData";
+    import type { PinnaReport } from "$lib/types/PinnaReport";
 
     import UserReport from "./UserReport.svelte";
     import SummaryGrid from "$lib/components/report/summary/SummaryGrid.svelte";
     import SummaryItem from "$lib/components/report/summary/SummaryItem.svelte";
     import { formatHours } from "$lib/utils";
     import { generateReportSummary } from "$lib/reportSummary";
+    import { DateTime } from "luxon";
 
-    let { data }: { data: ReportData } = $props();
+    let { data }: { data: PinnaReport } = $props();
 
     // Generate a summary for the report
     const summary = $derived(generateReportSummary(data));
 
     // Format the timestamps
-    const startDate = $derived(new Date(data.start));
-    const endDate = $derived(new Date(data.end));
+    const startDate = $derived(DateTime.fromISO(data.startDate));
+    const endDate = $derived(DateTime.fromISO(data.endDate));
 </script>
 
 <section class="report">
     <section id="overview">
         <header>
             <h1>Report Summary</h1>
-            <h2>From { startDate.toLocaleDateString() } to { endDate.toLocaleDateString() }</h2>
+            <h2>From { startDate.toLocaleString() } to { endDate.toLocaleString() }</h2>
         </header>
         <SummaryGrid>
             <SummaryItem total={ formatHours(summary.seconds.total) } name="Total Hours Spent" subtitle="Median: { formatHours(summary.seconds.median) } / Std. Dev. { formatHours(summary.seconds.standardDeviation) }"></SummaryItem>
@@ -31,8 +32,8 @@
         </SummaryGrid>
     </section>
     <section class="user-reports">
-        {#each data.users as user, index (user.id)}
-        <UserReport id={ user.id } userData={ user } summary={ summary.users[index] }></UserReport>
+        {#each data.userReports as userReport, index (userReport.user.id)}
+        <UserReport id={ userReport.user.username } userData={ userReport } summary={ summary.userSummaries[index] }></UserReport>
         {/each}
     </section>
 </section>

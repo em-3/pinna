@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { UserReport } from "$lib/types/ReportData";
+    import type { UserReport } from "$lib/types/PinnaReport";
     import type { UserSummary } from "$lib/types/ReportSummary";
 
     import { CircleCheck, CircleDot, CircleAlert, CircleDashed, CircleFadingArrowUp } from "lucide-svelte";
@@ -13,18 +13,18 @@
 
 <section { id }>
     <header>
-        <h1>Report for { userData.name }</h1>
+        <h1>Report for { userData.user.nickname ?? userData.user.displayName }</h1>
     </header>
     <SummaryGrid>
         <SummaryItem total={formatHours(summary.totalSeconds)} name="Hours Spent" />
-        <SummaryItem total={summary.data.reviewed.totalPoints} name="Reviewed Points" />
-        <SummaryItem total={summary.data.developed.totalPoints} name="Developed Points" />
+        <SummaryItem total={summary.categories.reviewed.totalPoints} name="Reviewed Points" />
+        <SummaryItem total={summary.categories.developed.totalPoints} name="Developed Points" />
         <SummaryItem total={summary.combinedPoints} name="Combined Points" />
     </SummaryGrid>
     <div class="report-grid">
-        <CategoryReport name="Reviewed" issues={userData.data.reviewed} summary={ summary.data.reviewed } Icon={CircleCheck}></CategoryReport>
-        <CategoryReport name="Developed" issues={userData.data.developed} summary={ summary.data.developed } Icon={CircleDot}></CategoryReport>
-        <CategoryReport name="Unassigned" issues={userData.data.unassigned} summary={ summary.data.unassigned } Icon={CircleDashed}></CategoryReport>
+        <CategoryReport name="Reviewed" issues={userData.issues.reviewed} summary={ summary.categories.reviewed } Icon={CircleCheck}></CategoryReport>
+        <CategoryReport name="Developed" issues={userData.issues.developed} summary={ summary.categories.developed } Icon={CircleDot}></CategoryReport>
+        <CategoryReport name="Unassigned" issues={userData.issues.unassigned} summary={ summary.categories.unassigned } Icon={CircleDashed}></CategoryReport>
     </div>
 </section>
 

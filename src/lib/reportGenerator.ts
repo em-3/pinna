@@ -2,7 +2,7 @@ import { fetch } from "@tauri-apps/plugin-http";
 import { v4 as uuidv4 } from "uuid";
 import { DateTime } from "luxon";
 import type { JiraAPISearchResponse } from "./types/Jira";
-import type { Issue, UserReport, ReportData } from "./types/ReportData";
+import type { IssueReport, UserReport, PinnaReport } from "./types/PinnaReport";
 
 /**
  * Generates a report from the given start and end dates.
@@ -15,7 +15,7 @@ import type { Issue, UserReport, ReportData } from "./types/ReportData";
  * @param token A valid Jira API token, which will be used to authenticate requests. If not supplied, requests will be sent unauthenticated.
  * @returns The generated report
  */
-async function createReport(jiraURL: URL | string, startDate: DateTime, endDate: DateTime, userNames: string[], projectName: string, storyPointsField: string, token: string = ""): Promise<ReportData> {
+async function createReport(jiraURL: URL | string, startDate: DateTime, endDate: DateTime, userNames: string[], projectName: string, storyPointsField: string, token: string = ""): Promise<PinnaReport> {
     // Create the JQL string
     // This query locates all issues in the given project that had their worklogs modified by any of the given users during the given date range.
     const jql = `project = ${projectName} AND worklogDate >= "${startDate.toISODate()}" AND worklogDate <= "${endDate.toISODate()}" AND worklogAuthor IN (${userNames.map(userName => `"${userName}"`).join(", ")}) ORDER BY key ASC`;
@@ -57,11 +57,11 @@ async function createReport(jiraURL: URL | string, startDate: DateTime, endDate:
     const reports: UserReport[] = convertResponse(responseData, userNames, storyPointsField);
 
     // Build the full report
-    const report: ReportData = {
+    const report: PinnaReport = {
         pinnaID: uuidv4(),
-        start: startDate.toISO(),
-        end: endDate.toISO(),
-        users: reports
+        startDate: startDate.toISO() ?? "",
+        endDate: endDate.toISO() ?? "",
+        userReports: reports
     };
 
     return report;
@@ -74,14 +74,16 @@ async function createReport(jiraURL: URL | string, startDate: DateTime, endDate:
  * @param storyPointsField The name of the Jira field that will be used for story points.
  */
 function convertResponse(response: JiraAPISearchResponse, userNames: string[], storyPointsField: string): UserReport[] {
-    // Scaffold each user
-    let users: UserReport[] = [];
+    // Scaffold each user report
+    let userReports: UserReport[] = [];
 
     for(const userName of userNames) {
         let user: UserReport = {
-            id: userName.toLowerCase(),
-            // TODO: Replace with provided display name after configuration refactor
-            name: userName,
+            user: {
+                // TODO: Replace with provided display name after configuration refactor
+                username: userName.toLowerCase(),
+                displayName: userName.toLowerCase()
+            },
             data: {
                 reviewed: [],
                 developed: [],
@@ -89,14 +91,14 @@ function convertResponse(response: JiraAPISearchResponse, userNames: string[], s
             }
         }
 
-        users.push(user);
+        userReports.push(user);
     }
 
     // Loop through each user
-    for(const user of users) {
+    for(const report of userReports) {
         // For each user, check each issue
         for(const issue of response.issues) {
-            let formattedIssue: Issue = {
+            let formattedIssue: IssueReport = {
                 id: issue.key,
                 name: issue.fields.summary,
                 seconds: 0,
@@ -104,28 +106,28 @@ function convertResponse(response: JiraAPISearchResponse, userNames: string[], s
             };
 
             // Calculate the total number of seconds that the current user logged on the current issue
-            formattedIssue.seconds = issue.fields.worklog.worklogs.filter((log) => user.id == log.author.name.toLowerCase()).reduce((total, log) => total + log.timeSpentSeconds, 0);
+            formattedIssue.seconds = issue.fields.worklog.worklogs.filter((log) => report.user.username == log.author.name.toLowerCase()).reduce((total, log) => total + log.timeSpentSeconds, 0);
 
             // If the issue has an assignee, check if it is the current user
             // Otherwise, check if the issue seconds are greater than zero
             // If the user is the assignee, they must be credited regardless of time
             // Otherwise, the user should not be credited for the issue
-            if(user.id == issue.fields.assignee?.name) {
+            if(report.user.username == issue.fields.assignee?.name) {
                 // If it is, then sort it into reviewed or developed based on the issue status
                 // This grants the user credit for the story points of this issue
                 if(issue.fields.status.name == "Done") {
-                    user.data.reviewed.push(formattedIssue);
+                    report.issues.reviewed.push(formattedIssue);
                 }else if(issue.fields.status.name == "Ready for Review" || issue.fields.status.name == "In Review") {
-                    user.data.developed.push(formattedIssue);
+                    report.issues.developed.push(formattedIssue);
                 }
             }else if(formattedIssue.seconds > 0) {
                 // If the user contributed time to the issue but is not the assignee, then they receive time credit but not story points
-                user.data.unassigned.push(formattedIssue);
+                report.issues.unassigned.push(formattedIssue);
             }
         }
     }
 
-    return users;
+    return userReports;
 }
 
 export { createReport };

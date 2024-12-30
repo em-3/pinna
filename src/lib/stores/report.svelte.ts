@@ -1,4 +1,4 @@
-import type { ReportData } from "../types/ReportData";
+import type { PinnaReport } from "../types/PinnaReport";
 
 import { DateTime } from "luxon";
 import { exists, readTextFile } from "@tauri-apps/plugin-fs";
@@ -7,7 +7,7 @@ import { createReport } from "$lib/reportGenerator";
 import { configStore } from "./config.svelte";
 
 // Create the initial report object with default values
-const reportStore: { report: ReportData | undefined } = $state({
+const reportStore: { report: PinnaReport | undefined } = $state({
     report: undefined
 });
 
@@ -41,7 +41,7 @@ async function loadReportFromFile() {
     // Read the report from the file
     const reportJSON = await readTextFile(filePath);
 
-    let parsedReport: ReportData;
+    let parsedReport: PinnaReport;
     
     try {
         parsedReport = JSON.parse(reportJSON);
