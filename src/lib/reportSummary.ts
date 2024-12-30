@@ -1,5 +1,5 @@
 import type { CategorySummary, ReportSummary, UserSummary } from "./types/ReportSummary";
-import type { ReportData, UserReport, Worklog } from "./types/ReportData"
+import type { ReportData, UserReport, Issue } from "./types/ReportData"
 import { median, standardDeviationP, roundPrecise } from "./utils";
 
 /**
@@ -78,9 +78,7 @@ function generateUserSummary(user: UserReport): UserSummary {
         data: {
             reviewed: generateCategorySummary(user.data.reviewed),
             developed: generateCategorySummary(user.data.developed),
-            changesRequested: generateCategorySummary(user.data.changesRequested),
-            unassigned: generateCategorySummary(user.data.unassigned),
-            inProgress: generateCategorySummary(user.data.inProgress)
+            unassigned: generateCategorySummary(user.data.unassigned)
         }
     };
 
@@ -98,8 +96,8 @@ function generateUserSummary(user: UserReport): UserSummary {
  * @param category The category report to summarize
  * @returns The summarized report
  */
-function generateCategorySummary(category: Worklog[]): CategorySummary {
-    // Sum the seconds and points for each worklog
+function generateCategorySummary(category: Issue[]): CategorySummary {
+    // Sum the seconds and points for each issue
     return {
         totalSeconds: category.reduce((total, current) => total + current.seconds, 0),
         totalPoints: category.reduce((total, current) => total + current.storyPoints, 0)

@@ -9,19 +9,17 @@ interface UserReport {
     id: any,
     name: string,
     data: {
-        reviewed: Worklog[],
-        developed: Worklog[],
-        changesRequested: Worklog[],
-        unassigned: Worklog[],
-        inProgress: Worklog[]
+        reviewed: Issue[],
+        developed: Issue[],
+        unassigned: Issue[],
     }
 }
 
-interface Worklog {
+interface Issue {
     id: any,
     name: string,
     seconds: number,
     storyPoints: number
 }
 
-export type { ReportData, UserReport, Worklog };
+export type { ReportData, UserReport, Issue };

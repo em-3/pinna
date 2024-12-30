@@ -22,40 +22,16 @@
         <SummaryItem total={summary.combinedPoints} name="Combined Points" />
     </SummaryGrid>
     <div class="report-grid">
-        <CategoryReport name="Reviewed" worklogs={userData.data.reviewed} summary={ summary.data.reviewed } Icon={CircleCheck}></CategoryReport>
-        <CategoryReport name="Developed" worklogs={userData.data.developed} summary={ summary.data.developed } Icon={CircleDot}></CategoryReport>
-        <CategoryReport name="Changes Requested" worklogs={userData.data.changesRequested} summary={ summary.data.changesRequested } Icon={CircleAlert}></CategoryReport>
-        <CategoryReport name="Unassigned" worklogs={userData.data.unassigned} summary={ summary.data.unassigned } Icon={CircleDashed}></CategoryReport>
-        <CategoryReport name="In Progress" worklogs={userData.data.inProgress} summary={ summary.data.inProgress } Icon={CircleFadingArrowUp}></CategoryReport>
+        <CategoryReport name="Reviewed" issues={userData.data.reviewed} summary={ summary.data.reviewed } Icon={CircleCheck}></CategoryReport>
+        <CategoryReport name="Developed" issues={userData.data.developed} summary={ summary.data.developed } Icon={CircleDot}></CategoryReport>
+        <CategoryReport name="Unassigned" issues={userData.data.unassigned} summary={ summary.data.unassigned } Icon={CircleDashed}></CategoryReport>
     </div>
 </section>
 
 <style>
-    section {
+    section, .report-grid {
         display: flex;
         flex-direction: column;
         gap: 20px;
-    }
-
-    /* header {
-        color: var(--accent-color);
-    } */
-
-    .report-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    @media (min-width: 64em) {
-        .report-grid {
-            grid-template-columns: 1fr 1fr;
-        }
-    }
-
-    @media (min-width: 80em) {
-        .report-grid {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
     }
 </style>

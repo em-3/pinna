@@ -1,16 +1,16 @@
 <script lang="ts">
-    import type { Worklog } from "$lib/types/ReportData";
+    import type { Issue } from "$lib/types/ReportData";
     import type { CategorySummary } from "$lib/types/ReportSummary";
 
     import { Ghost } from "lucide-svelte";
     import { formatHoursMinutes } from "$lib/utils";
     import RoundedSection from "$lib/components/RoundedSection.svelte";
 
-    let { name, worklogs, summary, Icon = undefined }: { name: string, worklogs: Worklog[], summary: CategorySummary, Icon: any } = $props();
+    let { name, issues, summary, Icon = undefined }: { name: string, issues: Issue[], summary: CategorySummary, Icon: any } = $props();
 </script>
 
 <RoundedSection title={name} {Icon}>
-    {#if worklogs.length > 0}
+    {#if issues.length > 0}
     <table>
         <thead>
             <tr>
@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each worklogs as issue (issue.id)}
+            {#each issues as issue (issue.id)}
             <tr>
                 <th scope="row">{ issue.id }</th>
                 <td class="name">{ issue.name }</td>
@@ -76,12 +76,6 @@
         transition: ease-in 0.2s background-color;
     }
 
-    td.name {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
     tbody th, tbody td {
         border-bottom: 1px solid var(--tertiary-color);
     }
@@ -98,13 +92,7 @@
 
     @media (min-width: 40em) {
         table {
-            grid-template-columns: 2fr 4fr 1fr 1fr;
-        }
-    }
-
-    @media (min-width: 64em) {
-        table {
-            grid-template-columns: 3fr 3fr 2fr 2fr;
+            grid-template-columns: 1fr 4fr 1fr 1fr;
         }
     }
 </style>

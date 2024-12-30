@@ -29,9 +29,7 @@ interface UserSummary {
     data: {
         reviewed: CategorySummary,
         developed: CategorySummary,
-        changesRequested: CategorySummary,
         unassigned: CategorySummary,
-        inProgress: CategorySummary
     }
 }
 
