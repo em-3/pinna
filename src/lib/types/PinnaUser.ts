@@ -5,7 +5,7 @@ interface PinnaUser {
     /**
      * The user's unique Jira ID.
      */
-    id: number;
+    id: string;
 
     /**
      * The user's username in lowercase.

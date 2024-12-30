@@ -1,11 +1,11 @@
-import { defaultConfig, type ConfigData } from "../types/ConfigData";
+import { defaultConfig, type PinnaConfig } from "../types/PinnaConfig";
 import { BaseDirectory, exists, mkdir, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 
 // The config file name
 const configFilePath = "config.json";
 
 // Create the initial config object with default values
-let configStore: { config: ConfigData } = $state({
+let configStore: { config: PinnaConfig } = $state({
     config: defaultConfig
 });
 
@@ -30,7 +30,7 @@ async function loadConfig() {
         baseDir: BaseDirectory.AppData
     });
 
-    const parsedConfig: ConfigData = JSON.parse(configJSON);
+    const parsedConfig: PinnaConfig = JSON.parse(configJSON);
 
     // Move the data into the reactive store
     configStore.config = parsedConfig;

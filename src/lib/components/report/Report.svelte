@@ -33,7 +33,7 @@
     </section>
     <section class="user-reports">
         {#each data.userReports as userReport, index (userReport.user.id)}
-        <UserReport id={ userReport.user.username } userData={ userReport } summary={ summary.userSummaries[index] }></UserReport>
+        <UserReport id={ userReport.user.id } userData={ userReport } summary={ summary.userSummaries[index] }></UserReport>
         {/each}
     </section>
 </section>
