@@ -1,7 +1,21 @@
+/**
+ * Represents an error to be used in the ErrorQueue.
+ */
 interface ErrorData {
-    id: number,
-    errorTitle: string | null,
-    errorMessage: string
+    /**
+     * A unique ID representing the error. Used to control ordering in the ErrorQueue.
+     */
+    id: number;
+
+    /**
+     * An optional title for the error.
+     */
+    errorTitle: string | null;
+
+    /**
+     * The error message.
+     */
+    errorMessage: string;
 }
 
-export type { ErrorData }
+export type { ErrorData };
