@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { Icon as IconType } from "lucide-svelte";
     import type { IssueReport } from "$lib/types/PinnaReport";
     import type { CategorySummary } from "$lib/types/ReportSummary";
 
@@ -6,7 +7,7 @@
     import { formatHoursMinutes } from "$lib/utils";
     import RoundedSection from "$lib/components/RoundedSection.svelte";
 
-    let { name, issues, summary, Icon = undefined }: { name: string, issues: IssueReport[], summary: CategorySummary, Icon: any } = $props();
+    let { name, issues, summary, Icon = null }: { name: string, issues: IssueReport[], summary: CategorySummary, Icon: typeof IconType | null } = $props();
 </script>
 
 <RoundedSection title={name} {Icon}>

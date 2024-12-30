@@ -3,7 +3,7 @@
     import type { Snippet } from "svelte";
     import type { MouseEventHandler } from "svelte/elements";
 
-    let { onclick = undefined, Icon, children }: { onclick: MouseEventHandler<HTMLButtonElement> | undefined, Icon: typeof IconType, children: Snippet } = $props();
+    let { onclick = null, Icon, children }: { onclick: MouseEventHandler<HTMLButtonElement> | null, Icon: typeof IconType, children: Snippet } = $props();
 </script>
 
 <button {onclick}>

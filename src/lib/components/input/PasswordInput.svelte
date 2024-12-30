@@ -3,7 +3,7 @@
 
     import { Eye, EyeOff } from "lucide-svelte";
 
-    let { value = $bindable(), oninput = undefined }: { value: string, oninput: FormEventHandler<HTMLInputElement> | undefined } = $props();
+    let { value = $bindable(), oninput = null }: { value: string, oninput: FormEventHandler<HTMLInputElement> | null } = $props();
 
     let showPassword = $state(false);
     const PasswordIcon = $derived(showPassword ? Eye : EyeOff);

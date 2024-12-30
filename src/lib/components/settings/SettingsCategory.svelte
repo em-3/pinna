@@ -1,8 +1,9 @@
 <script lang="ts">
+    import type { Icon as IconType } from "lucide-svelte";
     import type { Snippet } from "svelte";
     import RoundedSection from "../RoundedSection.svelte";
 
-    let { name, Icon = undefined, children }: { name: string, Icon: any, children: Snippet } = $props();
+    let { name, Icon = null, children }: { name: string, Icon: typeof IconType | null, children: Snippet } = $props();
 </script>
 
 <RoundedSection title={name} {Icon}>

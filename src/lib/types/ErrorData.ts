@@ -1,6 +1,6 @@
 interface ErrorData {
     id: number,
-    errorTitle: string | undefined,
+    errorTitle: string | null,
     errorMessage: string
 }
 

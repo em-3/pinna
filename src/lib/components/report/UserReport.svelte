@@ -2,13 +2,13 @@
     import type { UserReport } from "$lib/types/PinnaReport";
     import type { UserSummary } from "$lib/types/ReportSummary";
 
-    import { CircleCheck, CircleDot, CircleAlert, CircleDashed, CircleFadingArrowUp } from "lucide-svelte";
+    import { CircleCheck, CircleDot, CircleDashed } from "lucide-svelte";
     import CategoryReport from "./CategoryReport.svelte";
     import SummaryGrid from "$lib/components/report/summary/SummaryGrid.svelte";
     import SummaryItem from "$lib/components/report/summary/SummaryItem.svelte";
     import { formatHours } from "$lib/utils";
 
-    let { id = undefined, userData, summary }: { id: any, userData: UserReport, summary: UserSummary } = $props();
+    let { id = null, userData, summary }: { id: any, userData: UserReport, summary: UserSummary } = $props();
 </script>
 
 <section { id }>

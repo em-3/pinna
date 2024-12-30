@@ -7,8 +7,8 @@ import { createReport } from "$lib/reportGenerator";
 import { configStore } from "./config.svelte";
 
 // Create the initial report object with default values
-const reportStore: { report: PinnaReport | undefined } = $state({
-    report: undefined
+const reportStore: { report: PinnaReport | null } = $state({
+    report: null
 });
 
 /**

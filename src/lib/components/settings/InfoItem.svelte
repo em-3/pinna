@@ -1,13 +1,14 @@
 <script lang="ts">
+    import type { Icon as IconType } from "lucide-svelte";
     import type { Snippet } from "svelte";
 
     interface InfoItemProperties {
         name: string,
-        Icon: any,
+        Icon: typeof IconType | null,
         children: Snippet
     }
 
-    let { name, Icon = undefined, children }: InfoItemProperties = $props();
+    let { name, Icon = null, children }: InfoItemProperties = $props();
 </script>
 
 <section class="info-item">

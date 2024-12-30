@@ -1,17 +1,19 @@
 <script lang="ts">
+    import type { Icon as IconType } from "lucide-svelte";
+    
     import PasswordInput from "../input/PasswordInput.svelte";
     import { Eye, EyeOff } from "lucide-svelte";
 
     interface SettingsItemProperties {
         name: string,
-        Icon: any,
-        description: string | undefined,
+        Icon: typeof IconType | null,
+        description: string | null,
         type: string,
         value: any,
         dirty: boolean
     }
 
-    let { name, Icon = undefined, description = undefined, type = "text", value = $bindable(), dirty = $bindable(false) }: SettingsItemProperties = $props();
+    let { name, Icon = null, description = null, type = "text", value = $bindable(), dirty = $bindable(false) }: SettingsItemProperties = $props();
 </script>
 
 <section class="settings-item">
