@@ -1,19 +1,15 @@
-<script lang="ts">
+<script lang="ts" generics="T">
     import type { Icon as IconType } from "lucide-svelte";
-    
-    import PasswordInput from "../input/PasswordInput.svelte";
-    import { Eye, EyeOff } from "lucide-svelte";
+    import type { Snippet } from "svelte";
 
     interface SettingsItemProperties {
-        name: string,
-        Icon: typeof IconType | null,
-        description: string | null,
-        type: string,
-        value: any,
-        dirty: boolean
+        name: string;
+        children: Snippet;
+        Icon?: typeof IconType;
+        description?: string;
     }
 
-    let { name, Icon = null, description = null, type = "text", value = $bindable(), dirty = $bindable(false) }: SettingsItemProperties = $props();
+    let { name, children, Icon = undefined, description = undefined }: SettingsItemProperties = $props();
 </script>
 
 <section class="settings-item">
@@ -26,11 +22,9 @@
         <p>{ description }</p>
         {/if}
     </header>
-    {#if type == "password"}
-        <PasswordInput bind:value oninput={() => dirty = true} />
-    {:else}
-        <input { type } bind:value oninput={() => dirty = true}>
-    {/if}
+    <div class="contents">
+        {@render children()}
+    </div>
 </section>
 
 <style>
@@ -53,5 +47,10 @@
 
     .settings-item {
         display: contents;
+    }
+
+    .contents {
+        display: flex;
+        flex-direction: column;
     }
 </style>

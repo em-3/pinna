@@ -69,7 +69,9 @@ input, a.button, button {
     padding: 10px 20px;
     border: 1px solid var(--tertiary-color);
     border-radius: 15px;
-    transition: 300ms border-color;
+    transition:
+        300ms border-color,
+        300ms background-color;
 }
 
 input:focus {
@@ -82,10 +84,16 @@ input[type=button], input[type=submit], a.button, button {
     background-color: var(--accent-color);
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 5px;
     border: none;
     text-decoration: none;
     cursor: pointer;
+}
+
+input[type=button]:disabled, input[type=submit]:disabled, button:disabled {
+    background-color: var(--tertiary-color);
+    cursor: not-allowed;
 }
 
 .lucide * {

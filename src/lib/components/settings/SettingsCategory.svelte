@@ -17,7 +17,7 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 20px;
-        align-items: center;
+        align-items: flex-start;
     }
 
     @media (min-width: 64em) {

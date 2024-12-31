@@ -20,7 +20,7 @@ interface PinnaUser {
     /**
      * An optional nickname for the user.
      */
-    nickname: string | null;
+    nickname?: string;
 }
 
 export type { PinnaUser };
