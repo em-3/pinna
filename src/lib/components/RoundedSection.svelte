@@ -5,8 +5,8 @@
     let { title, children, Icon = undefined }: { title: string, children: Snippet, Icon?: typeof IconType } = $props();
 </script>
 
-<section class="section">
-    <header class="title">
+<section>
+    <header>
         <Icon />
         <h2>{ title }</h2>
     </header>
@@ -14,7 +14,7 @@
 </section>
 
 <style>
-    .section {
+    section {
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -23,7 +23,7 @@
         border-radius: 25px;
     }
 
-    .title {
+    header {
         display: flex;
         align-items: center;
         justify-content: center;
