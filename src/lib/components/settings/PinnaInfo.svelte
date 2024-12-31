@@ -2,10 +2,14 @@
     import SettingsItem from "$lib/components/settings/SettingsItem.svelte";
     import SettingsCategory from "$lib/components/settings/SettingsCategory.svelte";
     
-    import { Code, Feather, Package, Rocket } from "lucide-svelte";
+    import { Hammer, Code, Feather, Package, Rocket } from "lucide-svelte";
 </script>
 
 <SettingsCategory name="About Pinna" Icon={Feather}>
+    <SettingsItem name="Build Info" Icon={Hammer}>
+        <p>Current Version: { __APP_VERSION__ }</p>
+        <p>Build Environment: { __BUILD_ENVIRONMENT__ }</p>
+    </SettingsItem>
     <SettingsItem name="Developers" Icon={Rocket}>
         <a href="https://em-3.dev" target="_blank">EM_3</a>
     </SettingsItem>
