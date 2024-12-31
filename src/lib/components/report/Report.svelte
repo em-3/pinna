@@ -7,6 +7,7 @@
     import { formatHours } from "$lib/utils";
     import { generateReportSummary } from "$lib/reportSummary";
     import { DateTime } from "luxon";
+    import { saveReportToFile } from "$lib/stores/report.svelte";
 
     let { data }: { data: PinnaReport } = $props();
 
@@ -23,6 +24,9 @@
         <header>
             <h1>Report Summary</h1>
             <h2>From { startDate.toLocaleString() } to { endDate.toLocaleString() }</h2>
+            <section class="export-options">
+                <button onclick={saveReportToFile}>Save to File</button>
+            </section>
         </header>
         <SummaryGrid>
             <SummaryItem total={ formatHours(summary.seconds.total) } name="Total Hours Spent" subtitle="Median: { formatHours(summary.seconds.median) } / Std. Dev. { formatHours(summary.seconds.standardDeviation) }"></SummaryItem>
@@ -48,6 +52,7 @@
     #overview header {
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
         gap: 10px;
     }
 

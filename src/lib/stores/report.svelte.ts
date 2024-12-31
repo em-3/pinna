@@ -1,8 +1,8 @@
 import type { PinnaReport } from "../types/PinnaReport";
 
 import { DateTime } from "luxon";
-import { exists, readTextFile } from "@tauri-apps/plugin-fs";
-import { open } from "@tauri-apps/plugin-dialog";
+import { exists, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
+import { open, save } from "@tauri-apps/plugin-dialog";
 import { createReport } from "$lib/reportGenerator";
 import { configStore } from "./config.svelte";
 import { pushState } from "$app/navigation";
@@ -74,10 +74,33 @@ async function generateReportFromConfig(startDate: DateTime, endDate: DateTime) 
     reportStore.report = generatedReport;
 }
 
+/**
+ * Saves the current report to a user-selected file on the disk.
+ */
+async function saveReportToFile() {
+    const filePath = await save({
+        filters: [
+            {
+                name: "JSON Files",
+                extensions: ["json"]
+            }
+        ]
+    });
+
+    if(!filePath) {
+        return;
+    }
+
+    // Copy the report and convert it to JSON
+    const reportJSON = JSON.stringify($state.snapshot(reportStore).report, null, 2);
+
+    await writeTextFile(filePath, reportJSON);
+}
+
 function showReportModal() {
     pushState("", {
         showReportModal: true
     });
 }
 
-export { loadReportFromFile, generateReportFromConfig, showReportModal };
+export { loadReportFromFile, generateReportFromConfig, saveReportToFile, showReportModal };
