@@ -8,12 +8,19 @@
     let { href, Icon, children }: { href: string, Icon: typeof IconType, children: Snippet } = $props();
 </script>
 
-<a {href} class:active={page.url.pathname == href}>
-    <Icon />
-    <span>{@render children()}</span>
-</a>
+<div>
+    <a {href} class:active={page.url.pathname == href}>
+        <Icon />
+        <span>{@render children()}</span>
+    </a>
+</div>
 
 <style>
+    div {
+        display: flex;
+        justify-content: center;
+    }
+
     a {
         position: relative;
         display: flex;
