@@ -64,10 +64,10 @@ async function loadReportFromFile() {
  * @param endDate The end date for the report
  */
 async function generateReportFromConfig(startDate: DateTime, endDate: DateTime) {
-    const { url, projectName, selectedUsers, storyPointsField, token } = configStore.config.instance;
+    const { url, projectName, selectedUsers, storyPointsField, token } = configStore.config.jiraConfig;
 
     // Generate the report
-    const generatedReport = await createReport(url, startDate, endDate, selectedUsers.split(", "), projectName, storyPointsField, token);
+    const generatedReport = await createReport(url, startDate, endDate, selectedUsers, projectName, storyPointsField, token);
 
     // Update the stored report
     reportStore.report = generatedReport;
