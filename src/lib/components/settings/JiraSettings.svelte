@@ -1,15 +1,16 @@
 <script lang="ts">
-    import { BookKey, Cloud, Globe, KeyRound, LayoutDashboard } from "lucide-svelte";
+    import { BookKey, Cloud, Globe, KeyRound, LayoutDashboard, Users } from "lucide-svelte";
     import SettingsItem from "$lib/components/settings/SettingsItem.svelte";
     import SettingsCategory from "$lib/components/settings/SettingsCategory.svelte";
     import TextInput from "$lib/components/settings/component/TextInput.svelte";
     import UrlInput from "$lib/components/settings/component/UrlInput.svelte";
     import PasswordInput from "$lib/components/settings/component/PasswordInput.svelte";
     import type { PinnaConfig } from "$lib/types/PinnaConfig";
+    import UserSelectInput from "./component/UserSelectInput.svelte";
 
     let { config = $bindable(), dirty = $bindable() }: { config: PinnaConfig, dirty: boolean } = $props();
 
-    let dirtyValues: boolean[] = $state(new Array(4));
+    let dirtyValues: boolean[] = $state(new Array(5));
 
     $effect(() => {
         // Reset the values if dirty gets flipped to false
@@ -35,5 +36,8 @@
     </SettingsItem>
     <SettingsItem name="Story Points Field" Icon={BookKey} description="The Jira issue field that is used to track story points.">
         <TextInput bind:value={config.jiraConfig.storyPointsField} bind:dirty={dirtyValues[3]} />
+    </SettingsItem>
+    <SettingsItem name="Selected Users" Icon={Users} description="The users Pinna will use when generating reports.">
+        <UserSelectInput bind:value={config.jiraConfig.selectedUsers} bind:dirty={dirtyValues[4]} />
     </SettingsItem>
 </SettingsCategory>
