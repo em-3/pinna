@@ -1,4 +1,4 @@
-import { defaultReportMetric, type CategorySummary, type ReportSummary, type UserSummary } from "./types/ReportSummary";
+import { type CategorySummary, type ReportSummary, type UserSummary } from "./types/ReportSummary";
 import type { PinnaReport, UserReport, IssueReport } from "./types/PinnaReport"
 import { median, standardDeviationP, roundPrecise } from "./utils";
 
@@ -10,10 +10,26 @@ import { median, standardDeviationP, roundPrecise } from "./utils";
 function generateReportSummary(report: PinnaReport): ReportSummary {
     // Create an empty summary
     let summary: ReportSummary = {
-        seconds: defaultReportMetric,
-        reviewed: defaultReportMetric,
-        developed: defaultReportMetric,
-        combined: defaultReportMetric,
+        seconds: {
+            total: 0,
+            median: 0,
+            standardDeviation: 0
+        },
+        reviewed: {
+            total: 0,
+            median: 0,
+            standardDeviation: 0
+        },
+        developed: {
+            total: 0,
+            median: 0,
+            standardDeviation: 0
+        },
+        combined: {
+            total: 0,
+            median: 0,
+            standardDeviation: 0
+        },
         userSummaries: []
     };
 

@@ -67,7 +67,7 @@ interface IssueReport {
     /**
      * The Jira ID for the issue.
      */
-    id: any;
+    id: string;
 
     /**
      * The issue's name.

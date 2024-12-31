@@ -1,5 +1,3 @@
-import type { PageLoad } from "./$types";
-
 import { loadConfig } from "$lib/stores/config.svelte";
 
 // Force SvelteKit to prerender

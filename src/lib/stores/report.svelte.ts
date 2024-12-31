@@ -5,9 +5,10 @@ import { exists, readTextFile } from "@tauri-apps/plugin-fs";
 import { open } from "@tauri-apps/plugin-dialog";
 import { createReport } from "$lib/reportGenerator";
 import { configStore } from "./config.svelte";
+import { pushState } from "$app/navigation";
 
 // Create the initial report object with default values
-const reportStore: { report: PinnaReport | null } = $state({
+export const reportStore: { report: PinnaReport | null } = $state({
     report: null
 });
 
@@ -16,7 +17,7 @@ const reportStore: { report: PinnaReport | null } = $state({
  * @throws An error if the file cannot be read or is invalid
  */
 async function loadReportFromFile() {
-    // Ask the user for a file=
+    // Ask the user for a file
     const filePath = (await open({
         multiple: false,
         directory: false,
@@ -27,7 +28,7 @@ async function loadReportFromFile() {
             }
         ],
         title: "Import Report"
-    })) as string;
+    }));
 
     if(!filePath) {
         return;
@@ -73,4 +74,10 @@ async function generateReportFromConfig(startDate: DateTime, endDate: DateTime) 
     reportStore.report = generatedReport;
 }
 
-export { reportStore, loadReportFromFile, generateReportFromConfig };
+function showReportModal() {
+    pushState("", {
+        showReportModal: true
+    });
+}
+
+export { loadReportFromFile, generateReportFromConfig, showReportModal };

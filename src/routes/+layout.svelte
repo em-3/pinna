@@ -1,8 +1,10 @@
 <script lang="ts">
     import "../app.css";
     import { onNavigate } from "$app/navigation";
-    import Navigation from "$lib/components/navigation/Navigation.svelte";
+    import { page } from "$app/state";
     import ErrorStack from "$lib/components/error/ErrorStack.svelte";
+    import Navigation from "$lib/components/navigation/Navigation.svelte";
+    import ReportModal from "$lib/components/modal/ReportModal.svelte";
 
     let { children } = $props();
 
@@ -19,7 +21,11 @@
 	});
 </script>
 
-<ErrorStack></ErrorStack>
+{#if page.state.showReportModal}
+<ReportModal />
+{/if}
+
+<ErrorStack />
 
 <Navigation />
 

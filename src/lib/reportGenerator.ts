@@ -19,7 +19,7 @@ import type { PinnaUser } from "./types/PinnaUser";
 async function createReport(jiraURL: URL | string, startDate: DateTime, endDate: DateTime, users: PinnaUser[], projectName: string, storyPointsField: string, token: string = ""): Promise<PinnaReport> {
     // Create the JQL string
     // This query locates all issues in the given project that had their worklogs modified by any of the given users during the given date range.
-    const jql = `project = ${projectName} AND worklogDate >= "${startDate.toISODate()}" AND worklogDate <= "${endDate.toISODate()}" AND worklogAuthor IN (${users.map(user => `"${user.id}"`).join(", ")}) ORDER BY key ASC`;
+    const jql = `project = ${projectName} AND worklogDate >= "${startDate.toISODate()}" AND worklogDate <= "${endDate.toISODate()}" AND worklogAuthor IN (${users.map(user => `"${user.username}"`).join(", ")}) ORDER BY key ASC`;
 
     // Build the request body
     const jiraRequest = {
@@ -41,6 +41,7 @@ async function createReport(jiraURL: URL | string, startDate: DateTime, endDate:
         headers.append("Authorization", `Bearer ${token}`);
     }
 
+    // Make the API call
     const response = await fetch(jiraURL + "rest/api/2/search", {
         method: "POST",
         body: JSON.stringify(jiraRequest),
@@ -51,7 +52,6 @@ async function createReport(jiraURL: URL | string, startDate: DateTime, endDate:
         throw new Error(`Request failed: ${response.statusText} \n ${await response.text()}`);
     }
 
-    // Make the API call
     const responseData: JiraAPISearchResponse = await response.json();
 
     // Process the response into a UserReport array

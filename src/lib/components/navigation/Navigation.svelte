@@ -1,6 +1,6 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { loadReportFromFile } from "$lib/stores/report.svelte";
+    import { loadReportFromFile, showReportModal } from "$lib/stores/report.svelte";
     import { showErrorMessage } from "$lib/stores/error.svelte";
     import { BugPlay, FileInput, FilePlus2, Home, Settings } from "lucide-svelte";
     import NavLink from "./NavLink.svelte";
@@ -19,7 +19,7 @@
 
 <nav>
     <NavLink href="/" Icon={Home}>Home</NavLink>
-    <NavButton Icon={FilePlus2}>New</NavButton>
+    <NavButton onclick={() => showReportModal()} Icon={FilePlus2}>New</NavButton>
     <NavButton onclick={loadReport} Icon={FileInput}>Load</NavButton>
     <NavLink href="/settings" Icon={Settings}>Settings</NavLink>
 </nav>

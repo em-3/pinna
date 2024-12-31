@@ -30,14 +30,8 @@ interface ReportMetric {
     standardDeviation: number;
 }
 
-export const defaultReportMetric: ReportMetric = {
-    total: 0,
-    median: 0,
-    standardDeviation: 0
-};
-
 interface UserSummary {
-    userID: number;
+    userID: string;
 
     totalSeconds: number;
 
