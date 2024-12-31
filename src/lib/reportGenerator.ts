@@ -3,22 +3,23 @@ import { v4 as uuidv4 } from "uuid";
 import { DateTime } from "luxon";
 import type { JiraAPISearchResponse } from "./types/Jira";
 import type { IssueReport, UserReport, PinnaReport } from "./types/PinnaReport";
+import type { PinnaUser } from "./types/PinnaUser";
 
 /**
  * Generates a report from the given start and end dates.
  * @param jiraURL The URL of the Jira server
  * @param projectName The Jira project name for the report.
- * @param userNames A case-insensitive list of Jira user names to generate the report for.
+ * @param users A list of Pinna users to generate the report for.
  * @param startDate The start date for the report.
  * @param endDate The end date for the report.
  * @param storyPointsField The name of the Jira field that will be used for story points.
  * @param token A valid Jira API token, which will be used to authenticate requests. If not supplied, requests will be sent unauthenticated.
  * @returns The generated report
  */
-async function createReport(jiraURL: URL | string, startDate: DateTime, endDate: DateTime, userNames: string[], projectName: string, storyPointsField: string, token: string = ""): Promise<PinnaReport> {
+async function createReport(jiraURL: URL | string, startDate: DateTime, endDate: DateTime, users: PinnaUser[], projectName: string, storyPointsField: string, token: string = ""): Promise<PinnaReport> {
     // Create the JQL string
     // This query locates all issues in the given project that had their worklogs modified by any of the given users during the given date range.
-    const jql = `project = ${projectName} AND worklogDate >= "${startDate.toISODate()}" AND worklogDate <= "${endDate.toISODate()}" AND worklogAuthor IN (${userNames.map(userName => `"${userName}"`).join(", ")}) ORDER BY key ASC`;
+    const jql = `project = ${projectName} AND worklogDate >= "${startDate.toISODate()}" AND worklogDate <= "${endDate.toISODate()}" AND worklogAuthor IN (${users.map(user => `"${user.id}"`).join(", ")}) ORDER BY key ASC`;
 
     // Build the request body
     const jiraRequest = {
@@ -54,13 +55,14 @@ async function createReport(jiraURL: URL | string, startDate: DateTime, endDate:
     const responseData: JiraAPISearchResponse = await response.json();
 
     // Process the response into a UserReport array
-    const reports: UserReport[] = convertResponse(responseData, userNames, storyPointsField);
+    const reports: UserReport[] = convertResponse(responseData, users, storyPointsField);
 
     // Build the full report
     const report: PinnaReport = {
         pinnaID: uuidv4(),
-        startDate: startDate.toISO() ?? "",
-        endDate: endDate.toISO() ?? "",
+        createdDate: DateTime.now().toISODate(),
+        startDate: startDate.toISODate() ?? DateTime.now().toISODate(),
+        endDate: endDate.toISODate() ?? DateTime.now().toISODate(),
         userReports: reports
     };
 
@@ -73,25 +75,21 @@ async function createReport(jiraURL: URL | string, startDate: DateTime, endDate:
  * @param userNames A case-insensitive list of user names that will be processed into UserReports.
  * @param storyPointsField The name of the Jira field that will be used for story points.
  */
-function convertResponse(response: JiraAPISearchResponse, userNames: string[], storyPointsField: string): UserReport[] {
+function convertResponse(response: JiraAPISearchResponse, users: PinnaUser[], storyPointsField: string): UserReport[] {
     // Scaffold each user report
     let userReports: UserReport[] = [];
 
-    for(const userName of userNames) {
-        let user: UserReport = {
-            user: {
-                // TODO: Replace with provided display name after configuration refactor
-                username: userName.toLowerCase(),
-                displayName: userName.toLowerCase()
-            },
-            data: {
+    for(const user of users) {
+        let userReport: UserReport = {
+            user,
+            issues: {
                 reviewed: [],
                 developed: [],
                 unassigned: []
             }
         }
 
-        userReports.push(user);
+        userReports.push(userReport);
     }
 
     // Loop through each user

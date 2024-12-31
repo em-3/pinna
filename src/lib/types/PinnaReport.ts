@@ -10,6 +10,11 @@ interface PinnaReport {
     pinnaID: string;
 
     /**
+     * The time the report was crated in ISO 8601 format.
+     */
+    createdDate: string;
+
+    /**
      * The start time for the report's period in ISO 8601 format.
      */
     startDate: string;
