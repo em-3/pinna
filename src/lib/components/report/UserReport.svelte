@@ -8,7 +8,7 @@
     import SummaryItem from "$lib/components/report/summary/SummaryItem.svelte";
     import { formatHours } from "$lib/utils";
 
-    let { id = null, userData, summary }: { id: any, userData: UserReport, summary: UserSummary } = $props();
+    let { id = undefined, userData, summary }: { id?: string, userData: UserReport, summary: UserSummary } = $props();
 </script>
 
 <section { id }>

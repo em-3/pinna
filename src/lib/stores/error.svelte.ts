@@ -8,7 +8,7 @@ const errorQueue: ErrorData[] = $state([]);
  * @param errorTitle The title of the message.
  * @param displayTime How long, in milliseconds, the message should be displayed for. By default, this is 5000 (5 seconds).
  */
-function showErrorMessage(errorMessage: string, errorTitle: string | null = null, displayTime: number = 5000) {
+function showErrorMessage(errorMessage: string, errorTitle: string | undefined = undefined, displayTime: number = 5000) {
     // Add the message to the queue
     errorQueue.push({
         id: Math.floor(Math.random() * 10000),

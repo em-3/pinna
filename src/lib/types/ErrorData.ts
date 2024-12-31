@@ -10,7 +10,7 @@ interface ErrorData {
     /**
      * An optional title for the error.
      */
-    errorTitle: string | null;
+    errorTitle?: string;
 
     /**
      * The error message.

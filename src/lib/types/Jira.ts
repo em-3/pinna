@@ -28,7 +28,7 @@ interface JiraFields {
     worklog: {
         worklogs: JiraWorklog[]
     },
-    assignee: JiraUser | null,
+    assignee?: JiraUser,
     status: JiraStatus
 
     [index: string]: unknown;

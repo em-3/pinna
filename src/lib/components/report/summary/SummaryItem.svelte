@@ -1,5 +1,5 @@
-<script>
-    let { total, name, subtitle = null } = $props();
+<script lang="ts">
+    let { total, name, subtitle = undefined }: { total: string, name: string, subtitle?: string } = $props();
 </script>
 
 <div>

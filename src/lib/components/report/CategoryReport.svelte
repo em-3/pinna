@@ -7,7 +7,7 @@
     import { formatHoursMinutes } from "$lib/utils";
     import RoundedSection from "$lib/components/RoundedSection.svelte";
 
-    let { name, issues, summary, Icon = null }: { name: string, issues: IssueReport[], summary: CategorySummary, Icon: typeof IconType | null } = $props();
+    let { name, issues, summary, Icon = undefined }: { name: string, issues: IssueReport[], summary: CategorySummary, Icon?: typeof IconType } = $props();
 </script>
 
 <RoundedSection title={name} {Icon}>
