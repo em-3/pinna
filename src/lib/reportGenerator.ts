@@ -1,6 +1,6 @@
 import { fetch } from "@tauri-apps/plugin-http";
 import { v4 as uuidv4 } from "uuid";
-import { DateTime } from "luxon";
+import { DateTime, Interval } from "luxon";
 import type { JiraAPISearchResponse } from "./types/Jira";
 import type { IssueReport, UserReport, PinnaReport } from "./types/PinnaReport";
 import type { PinnaUser } from "./types/PinnaUser";
@@ -10,16 +10,15 @@ import type { PinnaUser } from "./types/PinnaUser";
  * @param jiraURL The URL of the Jira server
  * @param projectName The Jira project name for the report.
  * @param users A list of Pinna users to generate the report for.
- * @param startDate The start date for the report.
- * @param endDate The end date for the report.
+ * @param interval The date interval to filter tickets by.
  * @param storyPointsField The name of the Jira field that will be used for story points.
  * @param token A valid Jira API token, which will be used to authenticate requests. If not supplied, requests will be sent unauthenticated.
  * @returns The generated report
  */
-async function createReport(jiraURL: URL | string, startDate: DateTime, endDate: DateTime, users: PinnaUser[], projectName: string, storyPointsField: string, token: string = ""): Promise<PinnaReport> {
+async function createReport(jiraURL: URL | string, interval: Interval, users: PinnaUser[], projectName: string, storyPointsField: string, token: string = ""): Promise<PinnaReport> {
     // Create the JQL string
     // This query locates all issues in the given project that had their worklogs modified by any of the given users during the given date range.
-    const jql = `project = ${projectName} AND worklogDate >= "${startDate.toISODate()}" AND worklogDate <= "${endDate.toISODate()}" AND worklogAuthor IN (${users.map(user => `"${user.username}"`).join(", ")}) ORDER BY key ASC`;
+    const jql = `project = ${projectName} AND worklogDate >= "${interval.start?.toISODate() ?? DateTime.now().toISODate()}" AND worklogDate <= "${interval.end?.toISODate() ?? DateTime.now().toISODate()}" AND worklogAuthor IN (${users.map(user => `"${user.username}"`).join(", ")}) ORDER BY key ASC`;
 
     // Build the request body
     const jiraRequest = {
@@ -55,14 +54,14 @@ async function createReport(jiraURL: URL | string, startDate: DateTime, endDate:
     const responseData: JiraAPISearchResponse = await response.json();
 
     // Process the response into a UserReport array
-    const reports: UserReport[] = convertResponse(responseData, users, storyPointsField);
+    const reports: UserReport[] = convertResponse(responseData, interval, users, storyPointsField);
 
     // Build the full report
     const report: PinnaReport = {
         pinnaID: uuidv4(),
         createdDate: DateTime.now().toISODate(),
-        startDate: startDate.toISODate() ?? DateTime.now().toISODate(),
-        endDate: endDate.toISODate() ?? DateTime.now().toISODate(),
+        startDate: interval.start?.toISODate() ?? DateTime.now().toISODate(),
+        endDate: interval.end?.toISODate() ?? DateTime.now().toISODate(),
         userReports: reports
     };
 
@@ -75,7 +74,7 @@ async function createReport(jiraURL: URL | string, startDate: DateTime, endDate:
  * @param userNames A case-insensitive list of user names that will be processed into UserReports.
  * @param storyPointsField The name of the Jira field that will be used for story points.
  */
-function convertResponse(response: JiraAPISearchResponse, users: PinnaUser[], storyPointsField: string): UserReport[] {
+function convertResponse(response: JiraAPISearchResponse, interval: Interval, users: PinnaUser[], storyPointsField: string): UserReport[] {
     // Scaffold each user report
     let userReports: UserReport[] = [];
 
@@ -104,7 +103,10 @@ function convertResponse(response: JiraAPISearchResponse, users: PinnaUser[], st
             };
 
             // Calculate the total number of seconds that the current user logged on the current issue
-            formattedIssue.seconds = issue.fields.worklog.worklogs.filter((log) => report.user.username == log.author.name.toLowerCase()).reduce((total, log) => total + log.timeSpentSeconds, 0);
+            formattedIssue.seconds = issue.fields.worklog.worklogs.filter((log) => {
+                // Only return worklogs that are within the report interval and were authored by the current user
+                return interval.contains(DateTime.fromISO(log.updated)) && report.user.username == log.author.name.toLowerCase()
+            }).reduce((total, log) => total + log.timeSpentSeconds, 0);
 
             // If the issue has an assignee, check if it is the current user
             // Otherwise, check if the issue seconds are greater than zero

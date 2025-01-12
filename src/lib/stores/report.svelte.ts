@@ -1,6 +1,6 @@
 import type { PinnaReport } from "../types/PinnaReport";
 
-import { DateTime } from "luxon";
+import { DateTime, Interval } from "luxon";
 import { exists, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import { open, save } from "@tauri-apps/plugin-dialog";
 import { createReport } from "$lib/reportGenerator";
@@ -68,7 +68,7 @@ async function generateReportFromConfig(startDate: DateTime, endDate: DateTime) 
     const { url, projectName, selectedUsers, storyPointsField, token } = configStore.config.jiraConfig;
 
     // Generate the report
-    const generatedReport = await createReport(url, startDate, endDate, selectedUsers, projectName, storyPointsField, token);
+    const generatedReport = await createReport(url, Interval.fromDateTimes(startDate, endDate), selectedUsers, projectName, storyPointsField, token);
 
     // Update the stored report
     reportStore.report = generatedReport;
