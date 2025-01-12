@@ -32,7 +32,7 @@
         z-index: 1;
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 5px;
         padding: 5px;
         background-color: var(--menu-color);
@@ -43,10 +43,10 @@
 
     @media (min-width: 64em) {
         nav {
-            position: static;
-            display: inline-flex;
+            position: sticky;
+            top: 0;
+            display: flex;
             justify-content: flex-start;
-            width: initial;
         }
     }
 
