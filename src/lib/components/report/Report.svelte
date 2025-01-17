@@ -8,6 +8,8 @@
     import { generateReportSummary } from "$lib/reportSummary";
     import { DateTime } from "luxon";
     import { saveReportToFile } from "$lib/stores/report.svelte";
+    import SidebarSection from "../SidebarSection.svelte";
+    import QuickLinks from "../QuickLinks.svelte";
 
     let { data }: { data: PinnaReport } = $props();
 
@@ -19,19 +21,17 @@
     const endDate = $derived(DateTime.fromISO(data.endDate));
 </script>
 
-<div class="wrapper">
-    <div class="quick-links-wrapper">
-        <section>
-            <h2>Jump to...</h2>
-            <div class="quick-links scroll-section">
-                <a href="#overview">Overview</a>
-                {#each data.userReports as userReport (userReport.user.id)}
-                <a href="#{userReport.user.id}">{ userReport.user.nickname ?? userReport.user.displayName }</a>
-                {/each}
-            </div>
-        </section>
-    </div>
-    <section class="report scroll-section">
+<SidebarSection>
+    {#snippet sidebarContent()}
+        <QuickLinks>
+            <a href="#overview">Overview</a>
+            {#each data.userReports as userReport (userReport.user.id)}
+            <a href="#{userReport.user.id}">{ userReport.user.nickname ?? userReport.user.displayName }</a>
+            {/each}
+        </QuickLinks>
+    {/snippet}
+
+    {#snippet mainContent()}
         <section id="overview">
             <header>
                 <h1>Report Summary</h1>
@@ -52,14 +52,15 @@
             <UserReport id={ userReport.user.id } userData={ userReport } summary={ summary.userSummaries[index] }></UserReport>
             {/each}
         </section>
-    </section>
-</div>
+    {/snippet}
+</SidebarSection>
 
 <style>
     #overview {
         display: flex;
         flex-direction: column;
         gap: 20px;
+        padding: 10px;
     }
 
     #overview header {
@@ -74,54 +75,14 @@
         font-size: 1.25em;
     }
 
-    .wrapper {
-        display: grid;
-        grid-template-columns: 1fr;
-        overflow: hidden;
-    }
-
-    .quick-links-wrapper, .report {
-        padding: 10px;
-    }
-
-    .quick-links-wrapper, .quick-links-wrapper section {
-        overflow: hidden;
-    }
-
-    .quick-links-wrapper section {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .quick-links {
-        display: flex;
-        white-space: nowrap;
-        overflow-x: auto;
-        gap: 10px;
-    }
-
     .quick-links a {
         text-decoration: none;
     }
 
-    .report, .user-reports {
+    .user-reports {
         display: flex;
         flex-direction: column;
         gap: 60px;
-    }
-
-    .report {
-        overflow-y: auto;
-    }
-
-    @media (min-width: 64em) {
-        .wrapper {
-            grid-template-columns: 1fr 5fr 1fr;
-        }
-
-        .quick-links {
-            flex-direction: column;
-        }
+        padding: 10px;
     }
 </style>
