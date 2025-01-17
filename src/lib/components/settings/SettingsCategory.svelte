@@ -3,10 +3,10 @@
     import type { Snippet } from "svelte";
     import RoundedSection from "../RoundedSection.svelte";
 
-    let { name, Icon = undefined, children }: { name: string, Icon?: typeof IconType, children: Snippet } = $props();
+    let { name, id = undefined, Icon = undefined, children }: { name: string, id?: string, Icon?: typeof IconType, children: Snippet } = $props();
 </script>
 
-<RoundedSection title={name} {Icon}>
+<RoundedSection title={name} {id} {Icon}>
     <div class="settings">
         {@render children()}
     </div>

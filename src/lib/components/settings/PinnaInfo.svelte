@@ -5,7 +5,7 @@
     import { Hammer, Code, Feather, Package, Rocket } from "lucide-svelte";
 </script>
 
-<SettingsCategory name="About Pinna" Icon={Feather}>
+<SettingsCategory name="About Pinna" id="pinna-info" Icon={Feather}>
     <SettingsItem name="Build Info" Icon={Hammer}>
         <p>Current Version: { __APP_VERSION__ }</p>
         <p>Build Environment: { __BUILD_ENVIRONMENT__ }</p>

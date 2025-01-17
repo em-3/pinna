@@ -5,6 +5,8 @@
     import { configStore, saveConfig as saveConfigToFile } from "$lib/stores/config.svelte";
     import JiraSettings from "$lib/components/settings/JiraSettings.svelte";
     import PinnaInfo from "$lib/components/settings/PinnaInfo.svelte";
+    import SidebarSection from "$lib/components/SidebarSection.svelte";
+    import QuickLinks from "$lib/components/QuickLinks.svelte";
 
     let tempConfig: PinnaConfig = $state(defaultConfig);
     let dirtyValues: boolean[] = $state([
@@ -33,21 +35,41 @@
 
 </script>
 
-<section class="settings">
-    <header>
-        <h1>Settings</h1>
-    </header>
-    <section class="settings-categories scroll-section">
-        <JiraSettings bind:config={tempConfig} bind:dirty={dirtyValues[0]} />
-        <PinnaInfo />
-    </section>
-    <div class="button-tray" class:show={dirty}>
-        <button onclick={discardConfig}>Discard Changes</button>
-        <button onclick={saveConfig}>Save Changes</button>
-    </div>
-</section>
+<SidebarSection>
+    {#snippet sidebarContent()}
+        <QuickLinks>
+            <a href="#top">Top</a>
+            <a href="#jira-settings">Jira</a>
+            <a href="#pinna-info">About Pinna</a>
+        </QuickLinks>
+    {/snippet}
+
+    {#snippet mainContent()}
+        <div class="scroll-wrapper scroll-section">
+            <header id="top">
+                <h1>Settings</h1>
+            </header>
+            <section class="settings-categories">
+                <JiraSettings bind:config={tempConfig} bind:dirty={dirtyValues[0]} />
+                <PinnaInfo />
+            </section>
+        </div>
+        <div class="button-tray" class:show={dirty}>
+            <button onclick={discardConfig}>Discard Changes</button>
+            <button onclick={saveConfig}>Save Changes</button>
+        </div>
+    {/snippet}
+</SidebarSection>
 
 <style>
+    header, .settings-categories {
+        padding: 10px;
+    }
+
+    .scroll-wrapper {
+        overflow-y: auto;
+    }
+
     .button-tray {
         position: fixed;
 		bottom: 6em;
@@ -64,19 +86,10 @@
         box-shadow: var(--tertiary-color) 0 5px 5px;
     }
 
-    .settings, .settings-categories {
+    .settings-categories {
         display: flex;
         flex-direction: column;
         gap: 20px;
-    }
-
-    .settings {
-        overflow: hidden;
-        padding: 10px;
-    }
-
-    .settings-categories {
-        overflow-y: auto;
     }
 
     @media (min-width: 64em) {

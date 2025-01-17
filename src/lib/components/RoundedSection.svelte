@@ -2,10 +2,10 @@
     import type { Icon as IconType } from "lucide-svelte";
     import type { Snippet } from "svelte";
 
-    let { title, children, Icon = undefined }: { title: string, children: Snippet, Icon?: typeof IconType } = $props();
+    let { title, id = undefined, children, Icon = undefined }: { title: string, id?: string, children: Snippet, Icon?: typeof IconType } = $props();
 </script>
 
-<section>
+<section {id}>
     <header>
         <Icon />
         <h2>{ title }</h2>

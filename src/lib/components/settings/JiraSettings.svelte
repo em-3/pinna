@@ -24,7 +24,7 @@
     })
 </script>
 
-<SettingsCategory name="Jira" Icon={Cloud}>
+<SettingsCategory name="Jira" id="jira-settings" Icon={Cloud}>
     <SettingsItem name="Instance URL" Icon={Globe} description="The fully-formed URL for your Jira instance.">
         <UrlInput type="url" bind:value={config.jiraConfig.url} bind:dirty={dirtyValues[0]} />
     </SettingsItem>
