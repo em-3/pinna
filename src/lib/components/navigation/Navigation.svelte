@@ -26,34 +26,19 @@
 
 <style>
     nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        z-index: 1;
-        width: 100%;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 5px;
         padding: 5px;
-        background-color: var(--menu-color);
-        backdrop-filter: blur(20px);
         
         view-transition-name: navbar;
     }
 
     @media (min-width: 64em) {
         nav {
-            position: sticky;
-            top: 0;
             display: flex;
             justify-content: flex-start;
         }
-    }
-
-    ::view-transition-group(navbar) {
-        /* Fix for weird view transition stacking issues */
-        /* https://www.nicchan.me/blog/view-transitions-and-stacking-context/ */
-        z-index: 1;
     }
 
     ::view-transition-old(navbar) {

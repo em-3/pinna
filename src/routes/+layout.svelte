@@ -27,26 +27,33 @@
 
 <ErrorStack />
 
-<Navigation />
-
 <main>
-    {@render children()}
+    <Navigation />
+
+    <section class="view-content">
+        {@render children()}
+    </section>
 </main>
 
 <style>
     main {
         display: flex;
+        flex-direction: column-reverse;
+        height: 100%;
+    }
+
+    .view-content {
+        flex: 1;
+        display: flex;
         flex-direction: column;
-        max-width: 95em;
-        margin: 0 auto;
-        margin-bottom: 5em;
+        overflow: hidden;
 
         view-transition-name: content;
     }
 
     @media (min-width: 64em) {
         main {
-            margin-bottom: 0;
+            flex-direction: column;
         }
     }
 

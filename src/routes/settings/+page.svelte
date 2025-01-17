@@ -37,7 +37,7 @@
     <header>
         <h1>Settings</h1>
     </header>
-    <section class="settings-categories">
+    <section class="settings-categories scroll-section">
         <JiraSettings bind:config={tempConfig} bind:dirty={dirtyValues[0]} />
         <PinnaInfo />
     </section>
@@ -71,7 +71,12 @@
     }
 
     .settings {
+        overflow: hidden;
         padding: 10px;
+    }
+
+    .settings-categories {
+        overflow-y: auto;
     }
 
     @media (min-width: 64em) {

@@ -19,16 +19,13 @@
     --tertiary-color: #cbcbcb;
     --accent-color: #7700ff;
     --secondary-accent-color: #9e43ff;
-    --menu-color: #f6f6f680;
+    --scrollbar-color: #7700ff;
     --error-color: #ff4346;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 html, body {
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     margin: 0;
 }
 
@@ -96,6 +93,21 @@ input[type=button]:disabled, input[type=submit]:disabled, button:disabled {
     cursor: not-allowed;
 }
 
+.scroll-section {
+    scrollbar-gutter: both-edges;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+
+    transition: 0.5s ease-in-out scrollbar-color;
+}
+
+.scroll-section:hover {
+    scrollbar-color: var(--scrollbar-color) transparent;
+
+    transition: 0.2s ease-in-out scrollbar-color;
+}
+
 .lucide * {
     vector-effect: non-scaling-stroke;
 }
@@ -109,6 +121,6 @@ input[type=button]:disabled, input[type=submit]:disabled, button:disabled {
         --tertiary-color: #4a4a4a;
         --accent-color: #c586ff;
         --secondary-accent-color: #ecc9ff;
-        --menu-color: #19191980;
+        --scrollbar-color: #c586ff;
     }
 }
